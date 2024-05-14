@@ -1,8 +1,7 @@
 package com.study.SpringStudy.chap01;
 
+import com.study.SpringStudy.core.chap01.Hotel;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class HotelTest {
 
