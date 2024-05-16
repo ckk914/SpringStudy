@@ -27,19 +27,19 @@ import java.util.List;
     - /score/detail : GET
  */
 @Controller
-@RequestMapping("/score")
+@RequestMapping("/score")  //  /score/* 과 같음.
 public class ScoreController {
 
     // 의존객체 설정
     private ScoreJdbcRepository repository = new ScoreJdbcRepository();
 
-    @GetMapping("/list")
+    @GetMapping("/list")                    //   /score/list일 경우 여기 진행
     public String list(Model model) {  //여기 모델은 Spring 자체 모델 : 넘겨주기 위함
         System.out.println("/score/list : GET!");
 
-        List<Score> scoreList = repository.findAll(); //select 전체 조회
+        List<Score> scoreList = repository.findAll();                   //select 전체 조회
         model.addAttribute("sList",scoreList);  //갖다 쓸 수 있게 실음
-        return "score/score-list";   //jsp 호출
+        return "score/score-list";                                                   //jsp 호출
     }
 
     @PostMapping("/register")

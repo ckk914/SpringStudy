@@ -7,7 +7,7 @@ public class ScorePostDto {
     private int eng;
     private int math;
 
-    //쎼터 게터
+    //Getter & Setter & toString()
 
     public String getName() {
         return name;
