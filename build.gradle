@@ -27,6 +27,8 @@ dependencies {
     //jsp 라이브러리 추가
     implementation 'javax.servlet:jstl'
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+    //마리아 디비 라이브러리 추가
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.3.3'
 }
 
 tasks.named('test') {
