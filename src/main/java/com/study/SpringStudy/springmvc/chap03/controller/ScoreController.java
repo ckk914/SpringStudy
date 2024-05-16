@@ -34,12 +34,12 @@ public class ScoreController {
     private ScoreJdbcRepository repository = new ScoreJdbcRepository();
 
     @GetMapping("/list")
-    public String list(Model model) {
+    public String list(Model model) {  //여기 모델은 Spring 자체 모델 : 넘겨주기 위함
         System.out.println("/score/list : GET!");
 
-        List<Score> scoreList = repository.findAll();
-        model.addAttribute("sList",scoreList);
-        return "score/score-list";
+        List<Score> scoreList = repository.findAll(); //select 전체 조회
+        model.addAttribute("sList",scoreList);  //갖다 쓸 수 있게 실음
+        return "score/score-list";   //jsp 호출
     }
 
     @PostMapping("/register")
@@ -49,7 +49,7 @@ public class ScoreController {
 
         // 데이터베이스에 저장
         Score score = new Score(dto);
-        repository.save(score);
+        repository.save(score); //insert 문 실행~!
 
         //다시 조회로 돌아가야 저장된 데이터를 볼 수 있음
         //포워딩이 아닌 리다이렉트로 재요청을 넣어야 새롭게 디비를 조회
@@ -69,9 +69,9 @@ public class ScoreController {
         //2. db에 상세조회 요청
         //3. db에서 조회한 회원정보 jsp에게 전달
         System.out.println("stuNum = " + stuNum);
-        Score score = repository.fineOne(Long.parseLong(stuNum));
+        Score score = repository.fineOne(Long.parseLong(stuNum)); //학번을 넘겨받아서 조회
         System.out.println("score = " + score);
-        int[] rankAndAll = repository.findRankByStuNum(Long.parseLong(stuNum));
+        int[] rankAndAll = repository.findRankByStuNum(Long.parseLong(stuNum)); //랭킹 조회
         System.out.println("나의 등수 = " + rankAndAll[0]);
         System.out.println("전체 인원 수= " + rankAndAll[1]);
 

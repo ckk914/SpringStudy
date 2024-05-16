@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ScoreJdbcRepository implements ScoreRepository {
-
+    //sql 연결
     private String url = "jdbc:mariadb://localhost:3306/spring5";
     private String username = "root";
     private String password = "mariadb";
