@@ -19,6 +19,6 @@ public class SaveController implements ControllerV3{
         repo.save(member);
 
 //        response.sendRedirect("/chap02/v1/show");
-        return new ModelAndView("redirect:/chap02/v2/show");
+        return new ModelAndView("redirect:/chap02/v3/show");
     }
 }
