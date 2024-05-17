@@ -107,9 +107,9 @@
             <li class="list-header">
               <div class="count">총 학생 수: ${sList.size()}명</div>
               <div class="sort-link-group">
-                <div><a href="#">학번순</a></div>
-                <div><a href="#">이름순</a></div>
-                <div><a href="#">평균순</a></div>
+                <div><a href="/score/list?sort=num">학번순</a></div>
+                <div><a href="/score/list?sort=name">이름순</a></div>
+                <div><a href="/score/list?sort=avg">평균순</a></div>
               </div>
 
             </li>
@@ -119,7 +119,7 @@
               <li>
                 # 학번: ${s.stuNum}, 이름: <a href="/score/detail?stuNum=${s.stuNum}">${s.stuName}</a>,
                 평균: ${s.average}점, 학점: ${s.grade}
-                <a class="del-btn" href="#">삭제</a>
+                <a class="del-btn" href="/score/remove?sn=${s.stuNum}">삭제</a>
               </li>
             </c:forEach>
 

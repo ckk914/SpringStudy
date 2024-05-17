@@ -4,11 +4,15 @@ import com.study.SpringStudy.springmvc.chap03.dto.ScorePostDto;
 import com.study.SpringStudy.springmvc.chap03.entity.Score;
 import com.study.SpringStudy.springmvc.chap03.repository.ScoreJdbcRepository;
 import com.study.SpringStudy.springmvc.chap03.repository.ScoreJdbcRepository;
+import com.study.SpringStudy.springmvc.chap03.repository.ScoreRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -21,23 +25,29 @@ import java.util.List;
     - /score/register : POST
 
     3. 성적정보 삭제 요청
-    - /score/remove : POST
+    - /score/remove : POST   < 실무용    지금은 편의상 get으로 하겠음..
 
     4. 성적정보 상세 조회 요청
     - /score/detail : GET
  */
 @Controller
 @RequestMapping("/score")  //  /score/* 과 같음.
+@RequiredArgsConstructor  // 필수 파라미터(final 필드) 초기화 생성자
 public class ScoreController {
 
     // 의존객체 설정
-    private ScoreJdbcRepository repository = new ScoreJdbcRepository();
+
+    private final ScoreRepository repository;
+//    @Autowired
+
 
     @GetMapping("/list")                    //   /score/list일 경우 여기 진행
-    public String list(Model model) {  //여기 모델은 Spring 자체 모델 : 넘겨주기 위함
+    public String list(@RequestParam(defaultValue = "num") String sort,Model model) {  //여기 모델은 Spring 자체 모델 : 넘겨주기 위함
         System.out.println("/score/list : GET!");
 
-        List<Score> scoreList = repository.findAll();                   //select 전체 조회
+        List<Score> scoreList = repository.findAll(sort);                   //select 전체 조회
+
+
         model.addAttribute("sList",scoreList);  //갖다 쓸 수 있게 실음
         return "score/score-list";                                                   //jsp 호출
     }
@@ -56,10 +66,12 @@ public class ScoreController {
         return "redirect:/score/list";
     }
 
-    @PostMapping("/remove")
-    public String remove() {
+    @GetMapping("/remove")
+    public String remove(@RequestParam("sn") long StuNum) {
         System.out.println("/score/remove : POST!");
-        return "";
+
+        repository.delete(StuNum);
+        return "redirect:/score/list";
     }
 
     @GetMapping("/detail")
