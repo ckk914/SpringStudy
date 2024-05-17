@@ -27,6 +27,22 @@ public class BoardController {
     public String list(Model model){
         List<Board> boardList =repository.findAll();
         System.out.println("boardList = " + boardList);
+        System.out.println("======");
+        for(Board b:boardList) {
+            System.out.println(b.getTitle().length());
+            if(b.getTitle().length()>10){
+                String s = b.getTitle().substring(0,10);
+                s+= "...";
+                b.setTitle(s);
+            }
+            if(b.getContent().length()>15){
+                String s2 = b.getContent().substring(0, 13);
+                s2+="...";
+                b.setContent(s2);
+            }
+        }
+        System.out.println("⭐️boardList = " + boardList);
+
         model.addAttribute("bList",boardList);
         return "board/list";
 
@@ -70,7 +86,7 @@ public class BoardController {
         System.out.println("boardNo = " + boardNo);
         Board board = repository.findOne(Integer.parseInt(boardNo)); //학번을 넘겨받아서 조회
         System.out.println("board = " + board);
-        System.out.println("board length= " + board.getTitle().length());
+
 
         model.addAttribute("board",board);
         return "/board/detail";
