@@ -44,6 +44,9 @@
               <div class="time">
                 <i class="far fa-clock"></i>
                   ${b.regDateTime}</div>
+                  <div class="writer">
+                    <i class="far fa-user"></i>
+                      ${b.writer}</div>
               <div class="view">
                 <i class="fas fa-eye"></i>
                 <span class="view-count">${b.viewCount}</span>

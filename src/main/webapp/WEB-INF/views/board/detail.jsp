@@ -109,7 +109,7 @@
 <body>
 <div id="wrap" class="form-container">
     <h1>${board.boardNo}</h1>
-    <h2># 작성일자: ${board.regDateTime}</h2>
+    <h2># 작성일자: ${board.regDateTime}       # 작성자: ${board.writer}</h2>
     <label for="title">제목</label>
     <input type="text" id="title" name="title" value="${board.title}" readonly>
     <label for="content">내용</label>
