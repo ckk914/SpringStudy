@@ -8,11 +8,11 @@ import java.io.IOException;
 public class ModelAndView {
 
     private View view;   // 화면 처리
-    private Model model; // 화면에 필요한 데이터 처리
+    private MyModel myModel; // 화면에 필요한 데이터 처리
 
     public ModelAndView(String viewName) {
         this.view = new View(viewName);
-        this.model = new Model();
+        this.myModel = new MyModel();
     }
 
     // 화면 렌더링 기능 (포워딩 or 리다이렉트)
@@ -22,7 +22,7 @@ public class ModelAndView {
 
     // 모델에 JSP가 필요한 데이터를 담는 메서드
     public void addAttribute(String key, Object value) {
-        this.model.addAttribute(key, value);
+        this.myModel.addAttribute(key, value);
     }
 
     public View getView() {
@@ -33,11 +33,11 @@ public class ModelAndView {
         this.view = view;
     }
 
-    public Model getModel() {
-        return model;
+    public MyModel getModel() {
+        return myModel;
     }
 
-    public void setModel(Model model) {
-        this.model = model;
+    public void setModel(MyModel myModel) {
+        this.myModel = myModel;
     }
 }
