@@ -33,5 +33,6 @@ public class Hotel {
                 , Chef.getClass().getSimpleName());
 
         restaurant.order();
+        Chef.cook();
     }
 }

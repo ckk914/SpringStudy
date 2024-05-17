@@ -1,7 +1,7 @@
 package com.study.SpringStudy.webservlet.chap02.v4.Controller;
 
 import com.study.SpringStudy.webservlet.MemberMemoryRepo;
-import com.study.SpringStudy.webservlet.Model;
+import com.study.SpringStudy.webservlet.MyModel;
 
 import java.util.Map;
 
@@ -10,7 +10,7 @@ public class DeleteController implements ControllerV4{
     private MemberMemoryRepo repo = MemberMemoryRepo.getInstance();
 
     @Override
-    public String process(Map<String, String> paramMap, Model model) {
+    public String process(Map<String, String> paramMap, MyModel myModel) {
 
         // 1, 브라우저에서 삭제 요청이 오면 삭제할 대상의 account를 읽는다.
         String account = paramMap.get("account");

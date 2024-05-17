@@ -1,8 +1,6 @@
 package com.study.SpringStudy.webservlet.chap02.v3;
 
-import com.study.SpringStudy.webservlet.Model;
 import com.study.SpringStudy.webservlet.ModelAndView;
-import com.study.SpringStudy.webservlet.View;
 import com.study.SpringStudy.webservlet.chap02.v3.controller.JoinController;
 import com.study.SpringStudy.webservlet.chap02.v3.controller.ControllerV3;
 import com.study.SpringStudy.webservlet.chap02.v3.controller.SaveController;

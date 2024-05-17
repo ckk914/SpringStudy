@@ -1,6 +1,6 @@
 package com.study.SpringStudy.webservlet.chap02.v4.Controller;
 
-import com.study.SpringStudy.webservlet.Model;
+import com.study.SpringStudy.webservlet.MyModel;
 
 import java.util.Map;
 
@@ -13,5 +13,5 @@ public interface ControllerV4 {
      * @param2 model      :  응답 시 보여줄 jsp에 보낼 데이터를 담는 수송 객체
      */
 //    View process(Map<String,String> paramMap);
-    String process(Map<String,String> paramMap, Model model);
+    String process(Map<String,String> paramMap, MyModel myModel);
 }
