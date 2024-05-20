@@ -8,6 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 //@Component    //의존성 주입
 // ll     같은 의미 인데 의미 부여
 //@Repository
@@ -31,9 +32,7 @@ public class ScoreJdbcRepository implements ScoreRepository {
 
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
 
-            String sql = "INSERT INTO tbl_score " +
-                    "(stu_name, kor, eng, math, total, average, grade) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO tbl_score " + "(stu_name, kor, eng, math, total, average, grade) " + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, score.getStuName());
@@ -53,10 +52,11 @@ public class ScoreJdbcRepository implements ScoreRepository {
         }
         return false;
     }
-    List<Score> scoreList = new ArrayList<>();
+
+
     @Override
     public List<Score> findAll(String sort) {
-        scoreList= new ArrayList<>();
+        List<Score> scoreList = new ArrayList<>();
         try (Connection conn = connect()) {
             String sql = "SELECT * FROM TBL_SCORE " + sortCondition(sort);
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -64,7 +64,7 @@ public class ScoreJdbcRepository implements ScoreRepository {
             ResultSet rs = pstmt.executeQuery();
             System.out.println("rs = " + rs);
 
-            while(rs.next()){
+            while (rs.next()) {
                 Score s = new Score(rs);
                 scoreList.add(s);
 
@@ -79,9 +79,9 @@ public class ScoreJdbcRepository implements ScoreRepository {
 
     private String sortCondition(String sort) {
         String sortSql = "ORDER BY ";
-        switch(sort){
+        switch (sort) {
             case "num":
-                sortSql +="stu_num";
+                sortSql += "stu_num";
                 break;
             case "name":
                 sortSql += "stu_name";
@@ -95,7 +95,7 @@ public class ScoreJdbcRepository implements ScoreRepository {
 
     //개별 조회 가져오기
     @Override
-    public Score fineOne(long stuNum) {
+    public Score findOne(long stuNum) {
         //알 수 없는 문제 대비
 //        if(scoreList==null || scoreList.equals("")){
 //            scoreList= findAll();
@@ -126,18 +126,15 @@ public class ScoreJdbcRepository implements ScoreRepository {
 
         return null;
     }
+
+
     //석차와 랭킹 순위 반환~!
     @Override
     public int[] findRankByStuNum(long stuNum) {
 
         try (Connection conn = connect()) {
 
-            String sql = "SELECT A.stu_num, A.rank, A.cnt" +
-                    " FROM (SELECT *, " +
-                    "           RANK() OVER (ORDER BY average DESC) AS rank, " +
-                    "           COUNT(*) OVER() AS cnt" +
-                    "       FROM tbl_score) A " +
-                    "WHERE A.stu_num = ?";
+            String sql = "SELECT A.stu_num, A.rank, A.cnt" + " FROM (SELECT *, " + "           RANK() OVER (ORDER BY average DESC) AS rank, " + "           COUNT(*) OVER() AS cnt" + "       FROM tbl_score) A " + "WHERE A.stu_num = ?";
 
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setLong(1, stuNum);
@@ -145,10 +142,7 @@ public class ScoreJdbcRepository implements ScoreRepository {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                return new int[] {
-                        rs.getInt("rank"),
-                        rs.getInt("cnt")
-                };
+                return new int[]{rs.getInt("rank"), rs.getInt("cnt")};
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -178,7 +172,7 @@ public class ScoreJdbcRepository implements ScoreRepository {
     }
 
 
-    private Connection connect() throws SQLException{
-        return DriverManager.getConnection(url,username,password);
+    private Connection connect() throws SQLException {
+        return DriverManager.getConnection(url, username, password);
     }
 }

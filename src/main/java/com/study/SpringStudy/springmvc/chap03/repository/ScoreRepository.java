@@ -12,8 +12,7 @@ public interface ScoreRepository {
 
     // 저장소에서 데이터 전체조회하기
   List<Score> findAll(String sort);
-    // 저장소에서 데이터 개별조회하기
-    Score fineOne(long stuNum);
+
     //랭킹 조회  전체 인원수 + 랭킹
     int[] findRankByStuNum(long stuNum);
     // 저장소에서 데이터 삭제하기
@@ -23,5 +22,11 @@ public interface ScoreRepository {
         System.out.println("d?");
         return false;
     }
+    // 저장소에서 데이터 개별조회하기
+    Score findOne(long stuNum);
 
+    //저장소에서 국영수 점수 수정하기
+    default boolean updateScore(Score s){
+        return false;
+    }
 }

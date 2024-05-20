@@ -19,7 +19,7 @@
        <a href="/chap02/v3/join">새로운 회원가입하기(front v3)</a> <br>
        <a href="/chap02/v4/join">새로운 회원가입하기(front v4)</a> <br>
        <a href="/chap02/v5/join">새로운 회원가입하기(front v5)</a> <br>
-       <a href="/score/list">➤성적 정보 관리 프로그램 </a>
-       <a href="/board/list">➤게시물 관리 프로그램</a>
+       <a href="/score/list">➤성적 정보 관리 프로그램 </a><br>
+       <a href="/board/list">➤게시물 관리 프로그램</a><br>
 </body>
 </html>

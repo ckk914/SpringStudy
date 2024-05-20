@@ -30,11 +30,11 @@ public class ScoreSpringJdbcRepository implements ScoreRepository {
         return template.query(sql, (rs, n) -> new Score(rs));
     }
 
-    @Override
-    public Score fineOne(long stuNum) {
-        String sql = "SELECT * FROM tbl_score WHERE stu_num = ?";
-        return template.queryForObject(sql, (rs, n) -> new Score(rs), stuNum);
-    }
+//    @Override
+//    public Score fineOne(long stuNum) {
+//        String sql = "SELECT * FROM tbl_score WHERE stu_num = ?";
+//        return template.queryForObject(sql, (rs, n) -> new Score(rs), stuNum);
+//    }
 
 
     private String orderByStatement(String sort) {
@@ -72,5 +72,22 @@ public class ScoreSpringJdbcRepository implements ScoreRepository {
     public boolean delete(long stuNum) {
         String sql = "DELETE FROM tbl_score WHERE stu_num = ?";
         return template.update(sql, stuNum) == 1;
+    }
+
+    @Override
+    public Score findOne(long stuNum) {
+        String sql = "SELECT * FROM tbl_score WHERE stu_num = ?";
+        return template.queryForObject(sql, (rs, n) -> new Score(rs), stuNum);
+    }
+
+
+    @Override
+    public boolean updateScore(Score s){
+        String sql = "UPDATE tbl_score " +
+                "SET kor =?, eng = ?, math = ?, " +
+                "total = ?, average =?, grade =? " +
+                "WHERE stu_num = ?";
+        return template.update(sql, s.getKor(),s.getEng(),s.getMath(),
+                s.getTotal(),s.getAverage(),s.getGrade().toString(),s.getStuNum())==1;
     }
 }

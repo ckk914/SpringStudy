@@ -1,11 +1,14 @@
 package com.study.SpringStudy.springmvc.chap03.controller;
 
+import com.study.SpringStudy.springmvc.chap03.dto.ScoreDetailResponseDto;
 import com.study.SpringStudy.springmvc.chap03.dto.ScoreListResponseDto;
+import com.study.SpringStudy.springmvc.chap03.dto.ScoreModifyRequestDto;
 import com.study.SpringStudy.springmvc.chap03.dto.ScorePostDto;
 import com.study.SpringStudy.springmvc.chap03.entity.Score;
 import com.study.SpringStudy.springmvc.chap03.repository.ScoreJdbcRepository;
 import com.study.SpringStudy.springmvc.chap03.repository.ScoreJdbcRepository;
 import com.study.SpringStudy.springmvc.chap03.repository.ScoreRepository;
+import com.study.SpringStudy.springmvc.chap03.service.ScoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,6 +43,7 @@ public class ScoreController {
     // 의존객체 설정
 
     private final ScoreRepository repository;
+    private final ScoreService service;
 //    @Autowired
 
 
@@ -51,9 +55,7 @@ public class ScoreController {
         List<Score> scoreList = repository.findAll(sort);
 
         // 데이터 재가공
-        List<ScoreListResponseDto> dtos = scoreList.stream()
-                .map(s -> new ScoreListResponseDto(s))
-                .collect(Collectors.toList());
+        List<ScoreListResponseDto> dtos = service.getList(sort);
         //jsp로 전송
         model.addAttribute("sList",dtos);  //갖다 쓸 수 있게 실음
         return "score/score-list";                                                   //jsp 호출
@@ -87,17 +89,30 @@ public class ScoreController {
         //1. 상세 조회를 원하는 학번을 읽기
         //2. db에 상세조회 요청
         //3. db에서 조회한 회원정보 jsp에게 전달
-        System.out.println("stuNum = " + stuNum);
-        Score score = repository.fineOne(Long.parseLong(stuNum)); //학번을 넘겨받아서 조회
-        System.out.println("score = " + score);
-        int[] rankAndAll = repository.findRankByStuNum(Long.parseLong(stuNum)); //랭킹 조회
-        System.out.println("나의 등수 = " + rankAndAll[0]);
-        System.out.println("전체 인원 수= " + rankAndAll[1]);
+        ScoreDetailResponseDto dto = service.retrieve(Long.parseLong(stuNum));
 
-        model.addAttribute("score",score);
-        model.addAttribute("rank",rankAndAll[0]);
-        model.addAttribute("peopleCnt",rankAndAll[1]);
+        model.addAttribute("s",dto);
+
         return "score/score-detail";
     }
+
+    //수정 화면 열기 요청
+    @GetMapping("/modify")
+    public String modify(long stuNum, Model model){
+        ScoreDetailResponseDto dto = service.retrieve(stuNum);
+        model.addAttribute("s", dto);
+
+        return "score/score-modify";
+    }
+    //수정 데이터 반영 요청
+    @PostMapping("/modify")
+    public String modify(ScoreModifyRequestDto dto){
+        // 1. 수정을 원하는 새로운 데이터 읽기
+        System.out.println("dto = " + dto);
+        //2, 서비스에게 수정 위임
+        service.update(dto);
+        return "redirect:/score/detail?stuNum="+ dto.getStuNum();  //상세 조회로 리다이렉트
+    }
+
 
 }
