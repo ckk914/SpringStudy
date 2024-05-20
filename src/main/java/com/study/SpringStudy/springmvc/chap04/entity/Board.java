@@ -22,6 +22,7 @@ public class Board {
     private int viewCount;                          // 조회수
     private LocalDateTime regDateTime; //작성 일시
 
+    //생성자
     public Board(ResultSet rs) throws SQLException {
         this.boardNo = rs.getInt("board_no");
         this.title = rs.getString("title");

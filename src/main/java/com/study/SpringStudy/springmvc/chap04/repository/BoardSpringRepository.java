@@ -9,17 +9,18 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-@RequiredArgsConstructor
+@RequiredArgsConstructor    //final만 골라서 주입 RequiredArgsConstructor
 public class BoardSpringRepository implements BoardRepository {
-
+    //Jdbc를 쓰기 위한 Template 선언
     private final JdbcTemplate template;
 
+    //전체 조회
     @Override
     public List<Board> findAll() {
         String sql = "SELECT * FROM tbl_board";
         return template.query(sql, (rs, n) -> new Board(rs));  //n: rowMapper
     }
-
+    //클릭한 게시글 개별 조회
     @Override
     public Board findOne(int boardNo) {
         String sql = "SELECT * FROM tbl_board WHERE board_no = ?";
@@ -31,6 +32,7 @@ public class BoardSpringRepository implements BoardRepository {
     @Override
     public boolean save(Board board) {
         System.out.println("저장⭐️");
+        //컬럼 모음 생략하면 6개 컬럼을 다 채워야한다
         String sql = "INSERT INTO tbl_board " +
                 "(title, content, Writer) " +
                 "VALUES (?, ?, ?)";

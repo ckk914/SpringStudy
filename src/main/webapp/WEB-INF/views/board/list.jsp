@@ -39,21 +39,21 @@
   
         <section class="card" data-bno="${b.boardNo}">
           <div class="card-title-wrapper">
-            <h2 class="card-title">${b.title}</h2>
+            <h2 class="card-title">${b.shortTitle}</h2>
             <div class="time-view-wrapper">
               <div class="time">
                 <i class="far fa-clock"></i>
-                  ${b.regDateTime}</div>
+                  ${b.date}</div>
                   <div class="writer">
                     <i class="far fa-user"></i>
                       ${b.writer}</div>
               <div class="view">
                 <i class="fas fa-eye"></i>
-                <span class="view-count">${b.viewCount}</span>
+                <span class="view-count">${b.view}</span>
               </div>
             </div>
           </div>
-          <div class="card-content">     ${b.content}
+          <div class="card-content">     ${b.shortContent}
       
        
 
@@ -101,6 +101,7 @@
       modal.style.display = 'flex'; // 모달 창 띄움
 
       const $delBtn = e.target.closest('.del-btn');
+      //삭제 주소 얻음.
       const deleteLocation = $delBtn.dataset.href;
 
       // 확인 버튼 이벤트

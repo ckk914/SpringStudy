@@ -94,7 +94,7 @@
 <body>
 <div id="wrap" class="form-container">
     <h1>꾸러기 게시판 글쓰기</h1>
-    <form action="#" method="post">
+    <form action="/board/write" method="post">
         <label for="title">작성자</label>
         <input type="text" id="writer" name="writer" required>
         <label for="title">제목</label>
