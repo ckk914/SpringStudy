@@ -1,5 +1,6 @@
 package com.study.SpringStudy.springmvc.chap03.controller;
 
+import com.study.SpringStudy.springmvc.chap03.dto.ScoreListResponseDto;
 import com.study.SpringStudy.springmvc.chap03.dto.ScorePostDto;
 import com.study.SpringStudy.springmvc.chap03.entity.Score;
 import com.study.SpringStudy.springmvc.chap03.repository.ScoreJdbcRepository;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /*
     # 요청 URL
@@ -45,10 +47,15 @@ public class ScoreController {
     public String list(@RequestParam(defaultValue = "num") String sort,Model model) {  //여기 모델은 Spring 자체 모델 : 넘겨주기 위함
         System.out.println("/score/list : GET!");
 
-        List<Score> scoreList = repository.findAll(sort);                   //select 전체 조회
+        //select 전체 조회
+        List<Score> scoreList = repository.findAll(sort);
 
-
-        model.addAttribute("sList",scoreList);  //갖다 쓸 수 있게 실음
+        // 데이터 재가공
+        List<ScoreListResponseDto> dtos = scoreList.stream()
+                .map(s -> new ScoreListResponseDto(s))
+                .collect(Collectors.toList());
+        //jsp로 전송
+        model.addAttribute("sList",dtos);  //갖다 쓸 수 있게 실음
         return "score/score-list";                                                   //jsp 호출
     }
 
