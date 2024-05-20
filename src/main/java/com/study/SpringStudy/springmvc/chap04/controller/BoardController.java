@@ -84,7 +84,7 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
-    //5. 게시글 상세 조회 요청 (/board/detail :get)
+    //5. 게시글 상세 조회 요청 (/board/detail :get) + 조회수 올라가는 업데이트 요청~!
     @GetMapping("/detail")
     public String detail(@RequestParam("bno") String boardNo, Model model) {
         System.out.println("boardNo = " + boardNo);
@@ -92,6 +92,8 @@ public class BoardController {
 
         //2. 데이터베이스로부터 해당 글번호 데이터 조회하기
         Board board = repository.findOne(Integer.parseInt(boardNo)); //학번을 넘겨받아서 조회
+        //조회에 성공했다면, 조회수 상승을 한다
+        if(board != null) repository.upViewCount(Integer.parseInt(boardNo));
         System.out.println("board = " + board);
         //3. jsp 파일에 조회한 데이터 보내기
         model.addAttribute("board", new BoardDetailResponseDto(board));
