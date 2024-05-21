@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+<!--    카멜케이스와 스네이크 케이스의 자동 변환 설정~!-->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+<!--    select 조회 결과를 담을 Entity 클래스 별칭 설정하기⭐️-->
+    <typeAliases>
+        <typeAlias type="com.study.SpringStudy.database.chap01.Person" alias="person"/>
+        <typeAlias type="com.study.SpringStudy.springmvc.chap03.entity.Score" alias="score"/>
+        <typeAlias type="com.study.SpringStudy.springmvc.chap04.entity.Board" alias="board"/>
+    </typeAliases>
+<!--    SQL을 적어놓은 ... Mapper.xml 파일들을 사용등록하는 영역-->
+<!--다른 xml 생기면 하단에 계속 추가⭐️-->
+<mappers>
+    <mapper resource="mappers/PersonMapper.xml"/>
+    <mapper resource="mappers/ScoreMapper.xml"/>
+    <mapper resource="mappers/BoardMapper.xml"/>
+</mappers>
+</configuration>
