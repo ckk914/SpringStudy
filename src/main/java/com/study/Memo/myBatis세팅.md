@@ -31,7 +31,7 @@
 ```
 
 xml 만들기
-resources -> 그냥 놔도 되는데 폴더로 깔끔하게 추가
+resources -> 그냥 놔도 되는데 폴더로 깔끔하게 추가  
 적당히 해도됨
 사용이름+mapper
 
@@ -48,6 +48,8 @@ resources-> mappers>personMapper.xml
 <!--각 인터페이스 가서 패키지 주소 복사하고 + 그 인터페이스명 기입~!⭐️-->
 <mapper namespace="com.study.SpringStudy.database.chap02.PersonMapper">
 <!--id 속성: 인터페이스의 추상 메서드명을 적는다.~! (함수명)-->
+<!--    sqll문 컬럼명은 사용하는 객체의 변수명 -->
+<!--    세미클론 찍으면 안됨~!~  각 변수는 #{}로 감싸기 -->
     <insert id="save">
         INSERT INTO tbl_person
         (id, person_name, person_age)
