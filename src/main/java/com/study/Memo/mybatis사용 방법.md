@@ -52,3 +52,12 @@ xml에서 만들어주면 alias값을 통해 불러올 수 있음
 <select id="findOne" resultType="board">
 ```
 - 셀렉트 문은 return 타입 처럼 적는게 있다.~!
+
+- 그리고 service 클래스에서 mapper를 접근하여 사용
+```dtd
+public void delete(int boardNum) {
+        mapper.delete(boardNum);
+    }
+```
+- service를 사용하여 호출하는 곳은 controller
+
