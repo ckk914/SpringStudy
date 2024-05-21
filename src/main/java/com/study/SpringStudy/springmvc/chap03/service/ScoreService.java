@@ -1,10 +1,8 @@
 package com.study.SpringStudy.springmvc.chap03.service;
 
-import com.study.SpringStudy.springmvc.chap03.dto.ScoreDetailResponseDto;
-import com.study.SpringStudy.springmvc.chap03.dto.ScoreListResponseDto;
-import com.study.SpringStudy.springmvc.chap03.dto.ScoreModifyRequestDto;
-import com.study.SpringStudy.springmvc.chap03.dto.ScorePostDto;
+import com.study.SpringStudy.springmvc.chap03.dto.*;
 import com.study.SpringStudy.springmvc.chap03.entity.Score;
+import com.study.SpringStudy.springmvc.chap03.mapper.ScoreMapper;
 import com.study.SpringStudy.springmvc.chap03.repository.ScoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -26,8 +24,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service   // = Component인데 자주 사용해서 Service로 명명되어있음 Spring 자체적
 public class ScoreService {
-
-    private final ScoreRepository repository;
+    //Spring JDBC -> Mybatis
+//    private final ScoreRepository repository;
+    private final ScoreMapper repository;
 
 
     //목록 조회 중간 처리
@@ -58,10 +57,10 @@ public class ScoreService {
     public ScoreDetailResponseDto retrieve(long stuNum) {
 
         Score score = repository.findOne(stuNum);
-        int[] result = repository.findRankByStuNum(stuNum);
+        RankDto result = repository.findRankByStuNum(stuNum);
 
         ScoreDetailResponseDto dto
-                = new ScoreDetailResponseDto(score, result[0], result[1]);
+                = new ScoreDetailResponseDto(score, result.getRank(), result.getCnt());
 
         return dto;
     }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mapper파일은 실행할 sql을 적는 파일-->
+<!--생성한 mapper 파일은 mybatis-config.xml에 사용 등록을 해야함. -->
+
+<!--namespace속성에는 사용할 인터페이스의 풀네임(패키지+인터페이스명)을 적음-->
+<!--각 인터페이스 가서 패키지 주소 복사하고 + 그 인터페이스명 기입~!⭐️-->
+<mapper namespace="com.study.SpringStudy.database.chap02.PersonMapper">
+<!--id 속성: 인터페이스의 추상 메서드명을 적는다.~! (함수명)-->
+<!--  쿼리 id 는 객체이면 객체의 각 컬럼-->
+<!--   객체가 아니면 파라미터 id-->
+    <insert id="save">
+        INSERT INTO tbl_person
+        (id, person_name, person_age)
+        VALUES
+         (#{id}, #{personName}, #{personAge})
+    </insert>
+    <delete id="delete">
+        DELETE FROM tbl_person
+        WHERE id = #{id}
+    </delete>
+    <update id="update">
+        UPDATE tbl_person
+        SET person_age = #{personAge}, person_name = #{personName}
+        WHERE ID = #{id}
+    </update>
+<!--    id는 함수명 적기 -->
+<!--    알아서 계산하여 리턴 resultType 으로 반환할 객체 -->
+<!--    resultType 이름 길어서 mabatis-config에서 약어 만듬-->
+    <select id="findAll" resultType="person">
+        SELECT * FROM tbl_person
+    </select>
+    <select id="findOne" resultType="person">
+        SELECT * FROM tbl_person
+        WHERE id = #{id}
+    </select>
+    <select id="findNames" resultType="string">
+  SELECT PERSON_NAME
+        FROM TBL_PERSON
+    </select>
+    <select id="count" resultType="int">
+        SELECT COUNT(*)
+        FROM TBL_PERSON
+    </select>
+</mapper>
