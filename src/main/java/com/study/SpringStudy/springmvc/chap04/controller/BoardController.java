@@ -39,6 +39,9 @@ public class BoardController {
         //페이지 정보를 생성하여 jsp에게 전송
         PageMaker maker = new PageMaker(page, service.getCount());
 
+        //jsp에서 name 속성을 통해서 파라미터를 가져온다.~!
+        // type, keyword  jsp 태그의 name과 매칭시켜서 가져온다₩!⭐️
+
         //jsp파일에 해당 데이터목록 보냄
         model.addAttribute("bList", bList);
         model.addAttribute("maker", maker);

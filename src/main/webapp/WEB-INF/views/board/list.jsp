@@ -43,14 +43,14 @@
     <div class="search">
       <form action="/board/list" method="get">
 
-        <select class="form-select" name="" id="search-type">
+        <select class="form-select" name="type" id="search-type">
           <option value="title" selected>제목</option>
           <option value="content">내용</option>
           <option value="writer">작성자</option>
           <option value="tc">제목+내용</option>
         </select>
 
-        <input type="text" class="form-control" name="">
+        <input type="text" class="form-control" name="keyword">
 
         <button class="btn btn-primary" type="submit">
           <i class="fas fa-search"></i>
@@ -123,7 +123,7 @@
         <a class="page-link" href="/board/list?pageNo=${maker.begin-1}">prev</a>
       </li>
     </c:if>
-
+      <!-- 반복하여서 li를 생성하고 링크를 만들어준다⭐️ -->
       <c:forEach var="i" begin="${maker.begin}" end="${maker.end}">
         <li data-page-num="${i}" class="page-item">
           <a class="page-link" href="/board/list?pageNo=${i}">${i}</a>
@@ -165,6 +165,8 @@
 <script>
 
   const $cardContainer = document.querySelector('.card-container');
+  const $btnSearch = document.querySelector(`.btn-primary`);
+
 
   //================= 삭제버튼 스크립트 =================//
   const modal = document.getElementById('modal'); // 모달창 얻기
@@ -267,6 +269,7 @@ const currentPage = '${maker.pageInfo.pageNo}';
 console.log('현재페이지: ' + currentPage);
 
 // 2. 해당 페이지번호와 일치하는 li태그를 탐색한다.
+//    클릭한 페이지 번호 읽어서 가져옴.
 const $li = document.querySelector(`.pagination li[data-page-num="\${currentPage}"]`);
 
 // 3. 해당 li태그에 class = active를 추가한다.
@@ -275,6 +278,8 @@ $li.classList.add('active');
 }
 
 appendActivePage();
+
+
 
 
 

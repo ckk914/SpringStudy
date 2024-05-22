@@ -32,6 +32,7 @@ public class Page {
         this.pageNo = pageNo;
     }
 
+    //이상한 값 넣었을때 예외 처리
     public void setAmount(int amount) {
         if(amount < 6 ||amount> 60){
             this.amount = 6;
@@ -59,6 +60,8 @@ public class Page {
      *                m 페이지 -> limit (m-1)*N , N
      * @return
      */
+    //PageStart 호출하면 해당걸로 들어간다~!
+    // #{pageStart}
     public int getPageStart(){
 
         return (this.pageNo -1) * this.amount;
