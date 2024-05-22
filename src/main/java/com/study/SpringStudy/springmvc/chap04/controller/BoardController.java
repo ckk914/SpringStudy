@@ -1,5 +1,6 @@
 package com.study.SpringStudy.springmvc.chap04.controller;
 
+import com.study.SpringStudy.springmvc.chap04.common.Page;
 import com.study.SpringStudy.springmvc.chap04.dto.BoardDetailResponseDto;
 import com.study.SpringStudy.springmvc.chap04.dto.BoardListResponseDto;
 import com.study.SpringStudy.springmvc.chap04.dto.BoardPostDto;
@@ -29,9 +30,9 @@ public class BoardController {
 
     // 1. 목록 조회 요청 (/board/list : GET)
     @GetMapping("/list")
-    public String list(Model model) {
+    public String list(Page page, Model model) {
         //1. 데이터 베이스로 부터 게시글 목록 조회
-        List<BoardListResponseDto> bList = service.findAll();
+        List<BoardListResponseDto> bList = service.findAll(page);
         //2. 클라이언트에 데이터 보내기 전에 렌더링 필요한
         //   데이터 추출하기
         model.addAttribute("bList", bList);

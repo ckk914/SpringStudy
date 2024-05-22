@@ -2,6 +2,7 @@ package com.study.SpringStudy.springmvc.chap04.service;
 
 import com.study.SpringStudy.springmvc.chap03.dto.ScoreListResponseDto;
 import com.study.SpringStudy.springmvc.chap03.entity.Score;
+import com.study.SpringStudy.springmvc.chap04.common.Page;
 import com.study.SpringStudy.springmvc.chap04.dto.BoardDetailResponseDto;
 import com.study.SpringStudy.springmvc.chap04.dto.BoardListResponseDto;
 import com.study.SpringStudy.springmvc.chap04.entity.Board;
@@ -20,12 +21,12 @@ public class BoardService {
 
 
   //목록 조최 요청 중간 처리
-    public List<BoardListResponseDto> findAll() {
+    public List<BoardListResponseDto> findAll(Page page) {
         //BoardListResponseDto::new
 
         //조회해온 게시물 리스트에서 각 게시물들의 조회수를 확인하여
         //조회수가 5이상인 게시물에 특정 마킹
-         return mapper.findAll().stream().map(BoardListResponseDto::new)
+         return mapper.findAll(page).stream().map(BoardListResponseDto::new)
                 .collect(Collectors.toList());
     }
 

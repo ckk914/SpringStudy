@@ -6,6 +6,7 @@
    <select id="findAll" resultType="board">
        SELECT * FROM tbl_board
        ORDER BY board_no DESC
+       Limit #{pageStart},#{amount}
    </select>
 <select id="findOne" resultType="board">
     SELECT * FROM tbl_board WHERE board_no = #{boardNo}

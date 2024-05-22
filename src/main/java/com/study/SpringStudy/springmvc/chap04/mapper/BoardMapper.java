@@ -1,5 +1,6 @@
 package com.study.SpringStudy.springmvc.chap04.mapper;
 
+import com.study.SpringStudy.springmvc.chap04.common.Page;
 import com.study.SpringStudy.springmvc.chap04.entity.Board;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -8,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface BoardMapper {
     //게시물 목록 조회
-    List<Board> findAll();
+    List<Board> findAll(Page page);
     //게시물 상세 조회
     Board findOne(int boardNo);
     //게시물 등록
