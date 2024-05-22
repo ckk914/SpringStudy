@@ -2,9 +2,8 @@ package com.study.SpringStudy.springmvc.chap04.common;
 
 import lombok.*;
 
-@Getter@Setter@ToString
+@Getter@ToString
 @EqualsAndHashCode
-@NoArgsConstructor
 @AllArgsConstructor
 public class Page {
     private int pageNo;  //클라이언트가 요청한 페이지 번호
@@ -16,6 +15,29 @@ public class Page {
     public int getApple(){
         System.out.println("get Apple call check");
         return 5;
+    }
+
+    //list/   파라미터 없이 들어오면 기본값으로 사용⭐️
+    public Page(){
+        this.pageNo= 1;
+        this.amount = 6;
+    }
+
+    public void setPageNo(int pageNo) {
+        //이상한 페이지 넘버를 기입했을때 강제 1로 바꿈.⭐️
+        if(pageNo<1  || pageNo > Integer.MAX_VALUE){
+            this.pageNo=1;
+            return;
+        }
+        this.pageNo = pageNo;
+    }
+
+    public void setAmount(int amount) {
+        if(amount < 6 ||amount> 60){
+            this.amount = 6;
+            return;
+        }
+        this.amount = amount;
     }
 
     /**

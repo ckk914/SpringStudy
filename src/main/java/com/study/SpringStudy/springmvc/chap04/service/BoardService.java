@@ -62,4 +62,9 @@ public class BoardService {
         }
         return bList;
     }
+
+    public int getCount() {
+
+        return mapper.count();
+    }
 }
