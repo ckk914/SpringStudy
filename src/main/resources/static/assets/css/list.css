@@ -238,3 +238,27 @@
     background: #333 !important;
     color: #fff !important;
 }
+
+/* 검색창 */
+.top-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.top-section .search {
+
+    flex: 4;
+}
+.top-section .amount {
+    flex: 4;
+}
+.top-section .search form {
+    display: flex;
+}
+.top-section .search form #search-type {
+    flex: 1;
+    margin-right: 10px;
+}
+.top-section .search form input[name=keyword] {
+    flex: 3;
+}
