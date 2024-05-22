@@ -16,14 +16,23 @@ public class PageMaker {
 
     //총 게시물 수
     private int totalCount;
-
+    //마지막 페이지 번호
+    private int finalPage;
     //현재 페이지 정보 (몇 페이지 보고 있는지)
     private Page pageInfo;
 
+    //이전 , 다음 버튼 활성화 여부
+    private boolean prev, next;
+
+    private boolean veryPrev, veryNext;
+
+    //생성자
     public PageMaker(Page page,int totalCount){
         this.pageInfo = page;
         this.totalCount = totalCount;
-        makePageInfo();
+        makePageInfo();             //페이지 계산 알고리즘 실행
+//        finalPage =(int) Math.ceil((double) totalCount/pageInfo.getAmount());
+//        System.out.println("pageInfo.getPageNo() = " + pageInfo.getPageNo());
     }
     //페이지 생성에 필요한 데이터를 만드는 알고리즘
     private void makePageInfo(){
@@ -69,11 +78,19 @@ public class PageMaker {
 
         * */
         //totalCount : 총 게시물 수
-        int finalPage= (int)Math.ceil( (double) totalCount/ pageInfo.getAmount());
+        this.finalPage= (int)Math.ceil( (double) totalCount/ pageInfo.getAmount());
+        System.out.println("finalPage = " + finalPage);
         //마지막 구간에서 end 값을 finalPage 로 보정
         if(finalPage < this.end){
             this.end = finalPage;
         }
+        //4. 이전 버튼 활성화 여부
+        this.prev = begin !=1;  //begin이 1이 아닐 때만 활성화
+        this.veryPrev = begin !=1;
+
+        //5. 다음 버튼 활성화 여부
+        this.next = this.end <finalPage;
+        this.veryNext = this.end <finalPage;
     }
 
 }
