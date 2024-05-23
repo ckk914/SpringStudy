@@ -64,8 +64,8 @@ public class BoardService {
         return bList;
     }
 
-    public int getCount() {
+    public int getCount(Search search) {
 
-        return mapper.count();
+        return mapper.count(search);
     }
 }

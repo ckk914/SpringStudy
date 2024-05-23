@@ -11,11 +11,9 @@ import com.study.SpringStudy.springmvc.chap04.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,19 +30,20 @@ public class BoardController {
 
     // 1. 목록 조회 요청 (/board/list : GET)
     @GetMapping("/list")
-    public String list(Search page, Model model) {
-
+    public String list(@ModelAttribute("s") Search page, Model model) {
+        //@ModelAttribute("s") Search page  : 읽고 s로 바로 페이지로 넘겨준다~!
         //서비스에게 조회 요청 위임
         List<BoardListResponseDto> bList = service.findAll(page);
         //페이지 정보를 생성하여 jsp에게 전송
-        PageMaker maker = new PageMaker(page, service.getCount());
+        PageMaker maker = new PageMaker(page, service.getCount(page));
 
         //jsp에서 name 속성을 통해서 파라미터를 가져온다.~!
         // type, keyword  jsp 태그의 name과 매칭시켜서 가져온다₩!⭐️
-
+        System.out.println("페이지양 = " + page.getAmount());
         //jsp파일에 해당 데이터목록 보냄
         model.addAttribute("bList", bList);
         model.addAttribute("maker", maker);
+//        model.addAttribute("s",page);
         return "board/list";
 
     }
@@ -86,7 +85,10 @@ public class BoardController {
 
     //5. 게시글 상세 조회 요청 (/board/detail :get) + 조회수 올라가는 업데이트 요청~!
     @GetMapping("/detail")
-    public String detail(@RequestParam("bno") int boardNo, Model model) {
+    public String detail(@RequestParam("bno") int boardNo,
+                         Model model,
+                         HttpServletRequest request
+                         ) {
         System.out.println("boardNo = " + boardNo);
         //상세 조회하고 싶은 글번호 읽기
 
@@ -97,6 +99,10 @@ public class BoardController {
         System.out.println("board = " + board);
         //3. jsp 파일에 조회한 데이터 보내기
         model.addAttribute("board", board);
+        //4. 요청 헤더를 파싱하여 이전 페이지의 주소를 얻어냄
+        String ref = request.getHeader("Referer");
+        model.addAttribute("ref",ref);
+
         return "/board/detail";
     }
 }

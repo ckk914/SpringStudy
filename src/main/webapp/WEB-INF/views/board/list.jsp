@@ -44,13 +44,13 @@
       <form action="/board/list" method="get">
 
         <select class="form-select" name="type" id="search-type">
-          <option value="title" selected>제목</option>
+          <option value="title">제목</option>
           <option value="content">내용</option>
           <option value="writer">작성자</option>
           <option value="tc">제목+내용</option>
         </select>
 
-        <input type="text" class="form-control" name="keyword">
+        <input type="text" class="form-control" name="keyword" value="${s.keyword}">
 
         <button class="btn btn-primary" type="submit">
           <i class="fas fa-search"></i>
@@ -63,7 +63,12 @@
 
   <div class="card-container">
 
-
+    <c:if test="${bList.size() ==0}">
+      <div class="empty">
+        검색한 결과가 없습니다.
+      </div>
+    </c:if>
+ <c:if test="${bList.size() >0}">
     <c:forEach var="b" items="${bList}">
     <div class="card-wrapper">
   
@@ -101,6 +106,7 @@
       </div>
       <!-- end div.card-wrapper -->
 </c:forEach>
+</c:if>
 
 
   </div>
@@ -114,30 +120,30 @@
             
       <c:if test="${maker.veryPrev}">
       <li class="page-item">
-        <a class="page-link" href="/board/list?pageNo=1"> << </a>
+        <a class="page-link" href="/board/list?pageNo=1&type=${s.type}&keyword=${s.keyword}"> &lt; &lt; </a>
       </li>
     </c:if>
       
       <c:if test="${maker.prev}">
       <li class="page-item">
-        <a class="page-link" href="/board/list?pageNo=${maker.begin-1}">prev</a>
+        <a class="page-link" href="/board/list?pageNo=${maker.begin-1}&type=${s.type}&keyword=${s.keyword}">prev</a>
       </li>
     </c:if>
       <!-- 반복하여서 li를 생성하고 링크를 만들어준다⭐️ -->
       <c:forEach var="i" begin="${maker.begin}" end="${maker.end}">
         <li data-page-num="${i}" class="page-item">
-          <a class="page-link" href="/board/list?pageNo=${i}">${i}</a>
+          <a class="page-link" href="/board/list?pageNo=${i}&type=${s.type}&keyword=${s.keyword}">${i}</a>
         </li>
       </c:forEach>
 
       <c:if test="${maker.next}">
       <li class="page-item">
-        <a class="page-link" href="/board/list?pageNo=${maker.end+1}">next</a>
+        <a class="page-link" href="/board/list?pageNo=${maker.end+1}&type=${s.type}&keyword=${s.keyword}">next</a>
       </li>
     </c:if>
     <c:if test="${maker.veryNext}">
     <li class="page-item">
-      <a class="page-link" href="/board/list?pageNo=${maker.finalPage}"> >> </a>
+      <a class="page-link" href="/board/list?pageNo=${maker.finalPage}&type=${s.type}&keyword=${s.keyword}"> &gt; &gt; </a>
     </li>
   </c:if>
 
@@ -200,8 +206,9 @@
 
       // section태그에 붙은 글번호 읽기
       const bno = e.target.closest('section.card').dataset.bno;
-      // 요청 보내기
-      window.location.href= '/board/detail?bno=' + bno;
+      //파라미터 실어주기
+       // 요청 보내기
+      window.location.href = '/board/detail?bno=' + bno;
     }
   });
 
@@ -273,10 +280,26 @@ console.log('현재페이지: ' + currentPage);
 const $li = document.querySelector(`.pagination li[data-page-num="\${currentPage}"]`);
 
 // 3. 해당 li태그에 class = active를 추가한다.
-$li.classList.add('active');
+//if($li) $li.classList.add('active');
+//    ll
+$li?.classList.add('active');  //널이 아니면 클래스 리스트에 추가한다,
 
 }
 
+//기존 검색 조건 option 태그 고정하기
+function fixSearchOption(){
+  //1, 방금 전에 어떤 조건으로 검색했는지 값을 알아옴
+  const type = `${s.type}`;
+  console.log('type' +type);
+  //2. 해당 조건을 가진 option 태그를 검색
+  //    select된거 가져오기~!
+  const $option = document.querySelector(`#search-type option[value='\${type}`);
+
+//3. 해당 태그에 selected 속성 부여  
+//  ?.   => 옵션이 널이 아닐 경우 속성을 부여해라
+$option?.setAttribute('selected', 'selected');
+
+}
 appendActivePage();
 
 
