@@ -1,71 +1,66 @@
 package com.study.SpringStudy.springmvc.chap04.service;
 
-import com.study.SpringStudy.springmvc.chap03.dto.ScoreListResponseDto;
-import com.study.SpringStudy.springmvc.chap03.entity.Score;
-import com.study.SpringStudy.springmvc.chap04.common.Page;
 import com.study.SpringStudy.springmvc.chap04.common.Search;
 import com.study.SpringStudy.springmvc.chap04.dto.BoardDetailResponseDto;
+import com.study.SpringStudy.springmvc.chap04.dto.BoardFindAllDto;
 import com.study.SpringStudy.springmvc.chap04.dto.BoardListResponseDto;
+import com.study.SpringStudy.springmvc.chap04.dto.BoardWriteRequestDto;
 import com.study.SpringStudy.springmvc.chap04.entity.Board;
 import com.study.SpringStudy.springmvc.chap04.mapper.BoardMapper;
+import com.study.SpringStudy.springmvc.chap05.ReplyMapper;
+import com.study.SpringStudy.springmvc.chap05.entity.Reply;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class BoardService {
-    private final BoardMapper mapper;
 
+    private final BoardMapper boardMapper;
+    private final ReplyMapper replyMapper;
 
-  //목록 조최 요청 중간 처리
-    public List<BoardListResponseDto> findAll(Search page) {
-        //BoardListResponseDto::new
+    // 목록 조회 요청 중간처리
+    public List<BoardListResponseDto> findList(Search page) {
+        List<BoardFindAllDto> boardList = boardMapper.findAll(page);
 
-        //조회해온 게시물 리스트에서 각 게시물들의 조회수를 확인하여
-        //조회수가 5이상인 게시물에 특정 마킹
-         return mapper.findAll(page).stream().map(BoardListResponseDto::new)
+        // 조회해온 게시물 리스트에서 각 게시물들의 조회수를 확인하여
+        // 조회수가 5이상인 게시물에 특정 마킹
+        List<BoardListResponseDto> dtoList = boardList.stream()
+                .map(b -> new BoardListResponseDto(b))
                 .collect(Collectors.toList());
+
+        return dtoList;
     }
 
-    //등록 요청 중간 처리
-    public void save(Board board) {
-        mapper.save(board);
-    }
-    //삭제 요청 중간 처리
-    public void delete(int boardNum) {
-        mapper.delete(boardNum);
+    // 등록 요청 중간처리
+    public boolean insert(BoardWriteRequestDto dto) {
+        Board b = dto.toEntity();
+        return boardMapper.save(b);
     }
 
-    //상세 조회 요청 중간 처리
-
-    /**
-     *
-     * @param BoardDetailResponseDto = 커스텀 객체
-     * @return
-     */
-    public BoardDetailResponseDto findOne(int boardNo) {
-        return new BoardDetailResponseDto(mapper.findOne(boardNo));
+    // 삭제 요청 중간처리
+    public boolean remove(int boardNo) {
+        return boardMapper.delete(boardNo);
     }
 
-    public void upViewCount(int boardNo) {
-        mapper.upViewCount(boardNo);
-    }
+    // 상세 조회 요청 중간처리
+    public BoardDetailResponseDto detail(int bno) {
+        Board b = boardMapper.findOne(bno);
+        if (b != null) boardMapper.upViewCount(bno);
 
-    public List<BoardListResponseDto> addListWork(List<Board> boardList) {
-        List<BoardListResponseDto> bList = new ArrayList<>();
-        for (Board b : boardList) {
-            BoardListResponseDto dto = new BoardListResponseDto(b);
-            bList.add(dto);
-        }
-        return bList;
+        // 댓글 목록 조회
+        List<Reply> replies = replyMapper.findAll(bno);
+
+        BoardDetailResponseDto responseDto = new BoardDetailResponseDto(b);
+        responseDto.setReplies(replies);
+
+        return responseDto;
     }
 
     public int getCount(Search search) {
-
-        return mapper.count(search);
+        return boardMapper.count(search);
     }
 }

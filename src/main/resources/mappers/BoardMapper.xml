@@ -2,9 +2,11 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.study.SpringStudy.springmvc.chap04.mapper.BoardMapper">
-<!--    동적 sql 분리 -->
-    <sql id = "search">
+
+    <!--  동적 SQL 조건을 분리  -->
+    <sql id="search">
         <if test="type == 'title'">
             WHERE title LIKE CONCAT('%', #{keyword}, '%')
         </if>
@@ -19,33 +21,53 @@
             OR content LIKE CONCAT('%', #{keyword}, '%')
         </if>
     </sql>
-    <select id="findAll" resultType="board">
-        SELECT * FROM tbl_board
-        <include refid="search"/>
+
+
+    <select id="findAll" resultType="com.study.SpringStudy.springmvc.chap04.dto.BoardFindAllDto">
+        SELECT
+        B.board_no,
+        B.title,
+        B.content,
+        B.writer,
+        B.reg_date_time,
+        B.view_count,
+        COUNT(R.reply_no) AS reply_count
+        FROM tbl_board B
+        LEFT OUTER JOIN tbl_reply R
+        ON B.board_no = R.board_no
+        <include refid="search" />
+        GROUP BY B.board_no
         ORDER BY board_no DESC
         LIMIT #{pageStart}, #{amount}
     </select>
-<select id="findOne" resultType="board">
-    SELECT * FROM tbl_board WHERE board_no = #{boardNo}
-</select>
+
+    <select id="findOne" resultType="board">
+        SELECT * FROM tbl_board
+        WHERE board_no = #{boardNo}
+    </select>
+
     <insert id="save">
         INSERT INTO tbl_board
-        (title, content, Writer)
-        VALUES (#{title}, #{content}, #{writer})
+        (writer, content, title)
+        VALUES
+        (#{writer}, #{content}, #{title})
     </insert>
 
     <delete id="delete">
-        DELETE FROM tbl_board WHERE board_no = #{boardNo}
+        DELETE FROM tbl_board
+        WHERE board_no = #{boardNo}
     </delete>
+
     <update id="upViewCount">
         UPDATE tbl_board
-        Set view_count= view_count +1
+        SET view_count = view_count + 1
         WHERE board_no = #{boardNo}
-
     </update>
+
     <select id="count" resultType="int">
         SELECT COUNT(*)
-        FROM TBL_BOARD
-        <include refid="search"/>
+        FROM tbl_board
+        <include refid="search" />
     </select>
+
 </mapper>
