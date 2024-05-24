@@ -7,7 +7,7 @@ import com.study.SpringStudy.springmvc.chap04.dto.BoardListResponseDto;
 import com.study.SpringStudy.springmvc.chap04.dto.BoardWriteRequestDto;
 import com.study.SpringStudy.springmvc.chap04.entity.Board;
 import com.study.SpringStudy.springmvc.chap04.mapper.BoardMapper;
-import com.study.SpringStudy.springmvc.chap05.ReplyMapper;
+import com.study.SpringStudy.springmvc.chap05.mapper.ReplyMapper;
 import com.study.SpringStudy.springmvc.chap05.entity.Reply;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

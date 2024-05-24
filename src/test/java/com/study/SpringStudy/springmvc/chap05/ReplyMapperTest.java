@@ -3,6 +3,7 @@ package com.study.SpringStudy.springmvc.chap05;
 import com.study.SpringStudy.springmvc.chap04.entity.Board;
 import com.study.SpringStudy.springmvc.chap04.mapper.BoardMapper;
 import com.study.SpringStudy.springmvc.chap05.entity.Reply;
+import com.study.SpringStudy.springmvc.chap05.mapper.ReplyMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
