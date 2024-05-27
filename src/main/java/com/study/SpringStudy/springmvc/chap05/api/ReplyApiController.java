@@ -7,9 +7,14 @@ import com.study.SpringStudy.springmvc.chap05.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/replies")
@@ -21,7 +26,7 @@ public class ReplyApiController {
 
     //댓글 목록 조회 요청
     // URL : /api/v1/replies/원본글번호 - GET :목록 조회
-    // @PathVariable   URL 에 붙어있는 변수값ㅎ을 읽는 아노테이션
+    // @PathVariable   URL 에 붙어있는 변수값을 읽는 아노테이션
     @GetMapping("/{bno}")
     public ResponseEntity<?> list(@PathVariable long bno){    //GetMapping 과  이름 맞춰야함 ⭐️
         if(bno == 0){
@@ -47,9 +52,24 @@ public class ReplyApiController {
     //@RequestBody = 클라이언트가 전송한 데이터를 JSON으로 받아서 파싱
     //   ㄴ 달라고 하는 것
     @PostMapping
-    public ResponseEntity<?> posts(@RequestBody ReplyPostDto dto){
+    public ResponseEntity<?> posts(
+            @Validated @RequestBody ReplyPostDto dto   // @Validated 검증~!⭐️
+            , BindingResult result //입력값 검증 결과 데이터를 갖고 있는 객체
+
+    ){
         log.info("/api/vi/replies: post");
         log.debug("parameter: {}", dto);
+
+        if(result.hasErrors()){
+
+            Map<String,String> errors = makeValidationMessageMap(result);
+
+            return ResponseEntity               //에러 내보냄
+                    .badRequest()
+                    .body(errors);
+        }
+        log.debug(result.toString());  //노빠꾸 -> 데이터 그냥 들어감. 에러 직접 처리해야함
+
 
         boolean flag = replyService.register(dto);
 
@@ -60,6 +80,21 @@ public class ReplyApiController {
         return ResponseEntity
                 .ok()
                 .body(replyService.getReplies(dto.getBno()));
+    }
+
+//BindingResult 에서 에러를 확인해서 사용자에게 적절한 에러를 준다~!⭐️
+    private Map<String, String> makeValidationMessageMap(BindingResult result) {
+
+        Map<String,String> errors = new HashMap<>();
+
+        List< FieldError> fieldErrors = result.getFieldErrors();
+
+        for(FieldError error : fieldErrors){
+            errors.put(error.getField(), error.getDefaultMessage());
+        }
+
+        return errors;
+
     }
 
 }

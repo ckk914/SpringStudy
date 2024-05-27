@@ -1,6 +1,7 @@
 package com.study.SpringStudy.springmvc.chap05.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.study.SpringStudy.springmvc.chap05.entity.Reply;
 import lombok.*;
 
@@ -11,8 +12,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Builder
-public class ReplyDetailDto {
-
+public class ReplyDetailDto {           //서버  > > 클라이언트    : 뿌려주는 위치  클라이언트가 원하는걸 맞춰줄 수 있다~!
+    @JsonProperty("reply_no")  //이거 하면 필드명 바꿔서 뿌려줄 수 있다~! ⭐️
     private long rno;   //요청한 대로 여기서 필드이름 수정하기~!dto
     private String text;
     private String writer;

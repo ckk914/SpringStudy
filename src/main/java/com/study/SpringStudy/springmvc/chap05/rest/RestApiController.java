@@ -37,10 +37,11 @@ public class RestApiController {
     }
 
     @GetMapping("/hobby")
-//    @ResponseBody  클래스에 붙이면 한번만 붙이면 됨
+//    @ResponseBody  클래스에 붙이면 한번만 붙이면 됨 (주석하고 위에 붙였음!)
     public List<String> hobby() {
         //배열에 담아보내기
-        List<String> hobbies = List.of("태권도", "장기", "댄스");  //<-자바에서 잭슨이 알아서 변환해서 보낸다 contentType =>application/json
+        //<-자바에서 잭슨이 알아서 변환해서 보낸다 contentType =>application/json
+        List<String> hobbies = List.of("태권도", "장기", "댄스");
 
 
         return hobbies;
@@ -88,7 +89,9 @@ public class RestApiController {
         headers.add("mypet","catcat");
         headers.add("money","100");
 
-        //응답 코드 전송 > 직접 조작할 수 있다 원하는 번호로~!  200 ok 400 클라이언트가 잘못된 데이터 전송 404 url 찾지 못함 403 유료결제 안해서 안됨 500 서버 잘못
+        //응답 코드 전송 > 직접 조작할 수 있다 원하는 번호로~!
+        // 200 ok 400 클라이언트가 잘못된 데이터 전송
+        // 404 url 찾지 못함 403 유료결제 안해서 안됨 500 서버 잘못
         return ResponseEntity
                 .ok()   //ok200
                 .headers(headers)
@@ -97,10 +100,11 @@ public class RestApiController {
 
     @GetMapping("/bmi")
     public ResponseEntity<?> bmi(
+            //@RequestParam(required = false) 입력 안해도 에러 안나게 하기 위함
             @RequestParam(required = false) Double cm,
             @RequestParam(required = false) Double kg
     ){
-
+        //널 검사
         if (cm == null || kg == null) {
             return ResponseEntity
                     .badRequest()

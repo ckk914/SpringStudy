@@ -28,6 +28,7 @@ public class BoardService {
 
         // 조회해온 게시물 리스트에서 각 게시물들의 조회수를 확인하여
         // 조회수가 5이상인 게시물에 특정 마킹
+        //dto 교체
         List<BoardListResponseDto> dtoList = boardList.stream()
                 .map(b -> new BoardListResponseDto(b))
                 .collect(Collectors.toList());

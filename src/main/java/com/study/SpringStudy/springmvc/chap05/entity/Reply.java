@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Reply {
+public class Reply {                                    //db와 직접적으로 연관 있는 곳⭐️ : 데이터 추가되면 여기도 추가
     private long replyNo;                           //댓글 번호
     @Setter
     private String replyText;                   //댓글 내용
