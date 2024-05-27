@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
-public interface ReplyMapper {
+public interface ReplyMapper {  //여기 건들면 xml 수정 ㄱ ⭐️
 
     // 댓글 등록
     boolean save(Reply reply);
@@ -22,4 +22,7 @@ public interface ReplyMapper {
 
     // 총 댓글 수 조회
     int count(long boardNo);
+
+    //댓글번호로 게시글번호 찾기~!
+    long findBno(long rno);
 }

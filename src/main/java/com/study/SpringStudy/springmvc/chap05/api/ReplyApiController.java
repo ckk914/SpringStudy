@@ -6,6 +6,7 @@ import com.study.SpringStudy.springmvc.chap05.entity.Reply;
 import com.study.SpringStudy.springmvc.chap05.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -20,6 +21,7 @@ import java.util.Map;
 @RequestMapping("/api/v1/replies")
 @RequiredArgsConstructor
 @Slf4j
+@CrossOrigin  //CORS 정책 허용 범위 설정   (origins = "http://localhost:5503")
 public class ReplyApiController {
 
     private  final ReplyService replyService;
@@ -83,6 +85,7 @@ public class ReplyApiController {
     }
 
 //BindingResult 에서 에러를 확인해서 사용자에게 적절한 에러를 준다~!⭐️
+    //검증~!
     private Map<String, String> makeValidationMessageMap(BindingResult result) {
 
         Map<String,String> errors = new HashMap<>();
@@ -96,5 +99,17 @@ public class ReplyApiController {
         return errors;
 
     }
+
+    //삭제 처리 요청
+    @DeleteMapping("/{rno}")
+    public ResponseEntity<?> delete(@PathVariable long rno){   //PathVariable : url 데이터 읽음~!
+
+        List<ReplyDetailDto> dtoList = replyService.remove(rno);
+
+        return ResponseEntity
+                .ok()
+                .body(dtoList);
+    }
+
 
 }
