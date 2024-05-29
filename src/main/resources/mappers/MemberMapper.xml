@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.SpringStudy.springmvc.chap05.mapper.MemberMapper">
+    <insert id="save">
+        INSERT INTO tbl_member
+        (account, password, name , email)
+        VALUES
+        (#{account}, #{password}, #{name}, #{email})
+    </insert>
+    <select id="findOne" resultType="member">
+        SELECT
+        account
+        , password
+        , name
+        , auth
+        , reg_date
+        FROM tbl_member
+        WHERE account = #{account}
+    </select>
+
+    <select id="existsById" resultType="boolean">
+    SELECT
+    COUNT(*)
+    FROM tbl_member
+        <if test="type == 'account'"> WHERE account = #{keyword}</if>
+        <if test="type == 'email'"> WHERE email = #{keyword}</if>
+    </select>
+</mapper>

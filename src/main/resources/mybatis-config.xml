@@ -14,6 +14,7 @@
         <typeAlias type="com.study.SpringStudy.springmvc.chap03.entity.Score" alias="score"/>
         <typeAlias type="com.study.SpringStudy.springmvc.chap04.entity.Board" alias="board"/>
         <typeAlias type="com.study.SpringStudy.springmvc.chap05.entity.Reply" alias="reply"/>
+        <typeAlias type="com.study.SpringStudy.springmvc.chap05.entity.Member" alias="member"/>
     </typeAliases>
 <!--    SQL을 적어놓은 ... Mapper.xml 파일들을 사용등록하는 영역-->
 <!--다른 xml 생기면 하단에 계속 추가⭐️-->
@@ -22,5 +23,6 @@
     <mapper resource="mappers/ScoreMapper.xml"/>
     <mapper resource="mappers/BoardMapper.xml"/>
     <mapper resource="mappers/ReplyMapper.xml"/>
+    <mapper resource="mappers/MemberMapper.xml"/>
 </mappers>
 </configuration>
