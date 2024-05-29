@@ -1,7 +1,9 @@
 package com.study.SpringStudy.springmvc.chap05.api;
 
+import com.study.SpringStudy.springmvc.chap04.common.Page;
 import com.study.SpringStudy.springmvc.chap05.dto.request.ReplyPostDto;
 import com.study.SpringStudy.springmvc.chap05.dto.response.ReplyDetailDto;
+import com.study.SpringStudy.springmvc.chap05.dto.response.ReplyListDto;
 import com.study.SpringStudy.springmvc.chap05.entity.Reply;
 import com.study.SpringStudy.springmvc.chap05.service.ReplyService;
 import lombok.RequiredArgsConstructor;
@@ -27,10 +29,11 @@ public class ReplyApiController {
     private  final ReplyService replyService;
 
     //댓글 목록 조회 요청
-    // URL : /api/v1/replies/원본글번호 - GET :목록 조회
+    // URL : /api/v1/replies/원본글번호/page/페이지번호  - GET :목록 조회
     // @PathVariable   URL 에 붙어있는 변수값을 읽는 아노테이션
-    @GetMapping("/{bno}")
-    public ResponseEntity<?> list(@PathVariable long bno){    //GetMapping 과  이름 맞춰야함 ⭐️
+    @GetMapping("/{bno}/page/{pageNo}")
+    public ResponseEntity<?> list(@PathVariable long bno,
+                                  @PathVariable int pageNo){    //GetMapping 과  이름 맞춰야함 ⭐️
         if(bno == 0){
             String message = "글번호는 0이 될 수 없습니다.";
             log.warn(message);
@@ -39,17 +42,13 @@ public class ReplyApiController {
                     .body(message);
         }
         log.info("/api/v1/replies/{}: GET",bno);
-        List<ReplyDetailDto> replies = replyService.getReplies(bno);//댓글 목록 가져오기~!
-        log.debug("first reply :{}", replies.get(0));
-        try{
+        ReplyListDto replies = replyService.getReplies(bno, new Page(pageNo, 5));
 
-        }catch(Exception e){
-            log.error("dsdfsdfsd");
-        }
         return ResponseEntity
                 .ok()
                 .body(replies);
     }
+
     //댓글 생성 요청
     //@RequestBody = 클라이언트가 전송한 데이터를 JSON으로 받아서 파싱
     //   ㄴ 달라고 하는 것
@@ -81,7 +80,7 @@ public class ReplyApiController {
 
         return ResponseEntity
                 .ok()
-                .body(replyService.getReplies(dto.getBno()));
+                .body(replyService.getReplies(dto.getBno(), new Page(1, 5)));
     }
 
 //BindingResult 에서 에러를 확인해서 사용자에게 적절한 에러를 준다~!⭐️
@@ -104,7 +103,7 @@ public class ReplyApiController {
     @DeleteMapping("/{rno}")
     public ResponseEntity<?> delete(@PathVariable long rno){   //PathVariable : url 데이터 읽음~!
 
-        List<ReplyDetailDto> dtoList = replyService.remove(rno);
+        ReplyListDto dtoList = replyService.remove(rno);
 
         return ResponseEntity
                 .ok()

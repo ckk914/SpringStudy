@@ -52,11 +52,13 @@ public class BoardService {
         Board b = boardMapper.findOne(bno);
         if (b != null) boardMapper.upViewCount(bno);
 
+        //아래껀 동기 방식
         // 댓글 목록 조회
-        List<Reply> replies = replyMapper.findAll(bno);
+//        List<Reply> replies = replyMapper.findAll(bno);
+    //상세 조회 그리고 댓글은 비동기로 가져올 것임~!
 
         BoardDetailResponseDto responseDto = new BoardDetailResponseDto(b);
-        responseDto.setReplies(replies);
+//        responseDto.setReplies(replies);
 
         return responseDto;
     }

@@ -1,12 +1,16 @@
 package com.study.SpringStudy.springmvc.chap05.service;
 
+import com.study.SpringStudy.springmvc.chap04.common.Page;
+import com.study.SpringStudy.springmvc.chap04.common.PageMaker;
 import com.study.SpringStudy.springmvc.chap05.dto.request.ReplyPostDto;
 import com.study.SpringStudy.springmvc.chap05.dto.response.ReplyDetailDto;
+import com.study.SpringStudy.springmvc.chap05.dto.response.ReplyListDto;
 import com.study.SpringStudy.springmvc.chap05.entity.Reply;
 import com.study.SpringStudy.springmvc.chap05.mapper.ReplyMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,12 +23,17 @@ public class ReplyService {
     private final ReplyMapper replyMapper;
 
     //댓글 목록 전체 조회
-    public List<ReplyDetailDto> getReplies(long boardNo) {
-        List<Reply> replies = replyMapper.findAll(boardNo);
+    public ReplyListDto getReplies(long boardNo, Page page) {
+        List<Reply> replies = replyMapper.findAll(boardNo, page);
 
-        return replies.stream()
+        List<ReplyDetailDto> dtoList = replies.stream()
                 .map(r -> new ReplyDetailDto(r))
                 .collect(Collectors.toList());
+
+        return ReplyListDto.builder()
+                .replies(dtoList)
+                .pageInfo(new PageMaker(page,replyMapper.count(boardNo)))
+                .build();
     }
 
 
@@ -49,17 +58,15 @@ public class ReplyService {
 
     }
 
-    //댓글 삭제
-    public List<ReplyDetailDto> remove(long rno) {
-        //댓글 번호로 게시글 번호 찾기
+    // 댓글 삭제
+    @Transactional
+    public ReplyListDto remove(long rno) {
+        // 댓글 번호로 원본 글번호 찾기
         long bno = replyMapper.findBno(rno);
-
         boolean flag = replyMapper.delete(rno);
-
-        //삭제 후 삭제된 갱신된 목록을 리턴
-        //성공시 : 리스트 / 실패 시 빈 리스트 전송
-        return flag ? getReplies(bno) : Collections.emptyList();
-
+        // 삭제 후 삭제된 목록을 리턴
+        return flag ? getReplies(bno, new Page(1, 10)) : null;
     }
+
 
 }

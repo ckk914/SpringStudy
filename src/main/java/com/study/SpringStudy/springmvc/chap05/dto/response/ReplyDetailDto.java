@@ -17,7 +17,7 @@ public class ReplyDetailDto {           //서버  > > 클라이언트    : 뿌�
     private long rno;   //요청한 대로 여기서 필드이름 수정하기~!dto
     private String text;
     private String writer;
-    @JsonFormat(pattern = "yyyy년 MM월 dd일 HH:mm")
+//    @JsonFormat(pattern = "yyyy년 MM월 dd일 HH:mm")
     private LocalDateTime createAt;
 
     //엔터티를 DTo로 변환하는 생성자
