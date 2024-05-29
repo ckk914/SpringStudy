@@ -106,6 +106,7 @@ export function appendReplies({ replies }) {
   let tag = "";
   // replies가 null이 아니거나 0보다 클때
   if (replies && replies.length > 0) {
+    // reply_no: rno  => reply_no를 rno로 받아서 처리하겠다.
     replies.forEach(({ reply_no: rno, writer, text, createAt }) => {
       tag += `
         <div id='replyContent' class='card-body' data-reply-id='${rno}'>
@@ -158,6 +159,7 @@ export function replyPageClickEvent() {
   });
 }
 
+//삭제 개별로 구현
 export function replyDeleteClickEvent() {
   //기준 태그로 부터 위로 올라가면서 탐색하는 함수
   // closest(`css selector`);
@@ -212,6 +214,8 @@ export async function fetchInScrollReplies(pageNo = 1) {
       replyResponse.pageInfo.totalCount;
     //초기 댓글 리셋
     document.getElementById(`replyData`).innerHTML = ``;
+
+    setupInfiniteScroll(); //무한 스크롤 이벤트 등록  : 2페이지 부터는 스크롤 이벤트로 그림~!
   }
 
   // 댓글 목록 렌더링
