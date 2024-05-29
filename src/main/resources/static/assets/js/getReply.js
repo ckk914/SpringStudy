@@ -1,4 +1,5 @@
 import { BASE_URL } from "./reply.js";
+import { showSpinner, hideSpinner } from "./spinner.js";
 
 function getRelativeTime(createAt) {
   // 현재 시간 구하기
@@ -193,6 +194,7 @@ let loadedReplies = 0; //로딩된 댓글 수
 //서버에서 댓글 데이터를 페칭(불러옴)
 export async function fetchInScrollReplies(pageNo = 1) {
   if (isFetching) return; // 서버에서 데이터를 가져오는 중이면 return;
+
   isFetching = true; // 현재 가져오는 중이다~!(패칭ing)
 
   //실질적인 통신 시작 부분
@@ -218,6 +220,7 @@ export async function fetchInScrollReplies(pageNo = 1) {
   currentPage = pageNo;
 
   isFetching = false; //패칭 완료
+  hideSpinner();
 
   //댓글을 전부 가져올 시 스크롤 이벤트 제거하기
   if (loadedReplies >= totalReplies) {
@@ -237,6 +240,7 @@ async function scrollHandler(e) {
     // setTimeout으로 delay 넣으면 안됨(이유:스크롤 여러번하면 한번에 목록이 누적되어 날라옴)
     //서버에서 데이터를 비동기로 불러와야 함
     //2초의 대기열이 생성되면 다음 대기열 생성까지 2초를 기다려야함
+    showSpinner();
     await new Promise((resolve) => setTimeout(resolve, 500));
     fetchInScrollReplies(currentPage + 1); //스크롤 마다 +1 페이지 보여줌
   }
