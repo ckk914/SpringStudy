@@ -127,3 +127,9 @@ header .gnb ul li.active
 {
     color: #fff;
 }
+.warning{
+    color:red;
+}
+.success{
+    color:skyblue;
+}
