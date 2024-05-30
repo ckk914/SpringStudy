@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,7 +14,8 @@ class MemberMapperTest {
 
     @Autowired
     MemberMapper memberMapper;
-
+    @Autowired
+    PasswordEncoder encoder;
     @Test
     @DisplayName("회원가입에 성공해야한다")
     void saveTest() {
@@ -58,5 +60,18 @@ class MemberMapperTest {
         //when
 
         //then
+    }
+
+    @Test
+    @DisplayName("")
+    void encordingTest() {
+
+        //given
+        String rawPassword = "abc1234";
+        //when
+        String encordedPassword = encoder.encode(rawPassword);
+
+        //then
+        System.out.println("encordedPassword = " + encordedPassword);
     }
 }
