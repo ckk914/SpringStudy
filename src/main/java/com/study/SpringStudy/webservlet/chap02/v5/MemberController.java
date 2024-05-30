@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@Controller
+//@Controller
 @RequestMapping("/chap02/v5/*")
 public class MemberController {
 

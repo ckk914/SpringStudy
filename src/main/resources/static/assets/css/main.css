@@ -16,5 +16,114 @@ button {
 
 #wrap {
     width: 60%;
-    margin: 100px auto;
+    margin: 200px auto;
+}
+
+
+/* reset */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* common style */
+.hide {
+    display: none !important;
+}
+
+/* header style */
+header {
+    /* background: red; */
+    background: #222;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+header.on {
+    background: #222;
+    border-bottom: 1px solid #2c2c2c;
+    transition: .4s;
+}
+
+header .inner-header {
+    /* background: orange; */
+    width: 92%;
+    margin: 0 auto;
+    height: 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    color: #fff;
+}
+header .inner-header .logo {
+    /* background: tomato; */
+    flex: 1;
+    width: 150px;
+}
+header .inner-header .logo a {
+    display: block;
+}
+header .inner-header .logo a img {
+    height: 60px;
+}
+header .inner-header .intro-text {
+    /* background: greenyellow; */
+    flex: 4;
+    text-transform: uppercase;
+    margin-left: 40px;
+}
+header .inner-header .menu-open {
+    /* background: skyblue; */
+    flex: 1;
+    font-size: 16px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+header .inner-header .menu-open .lnr-menu {
+    font-size: 33px;
+    margin-left: 15px;
+}
+
+/* header gnb style */
+header .gnb {
+    background: #000;
+    color: #666;
+    height: 100vh;
+    font-size: 40px;
+    padding: 70px 100px;
+    box-sizing: border-box;
+
+    position: fixed;
+    z-index: 2000;
+    right: -100%;
+    top: 0;
+    transition: .6s;
+
+    display: flex;
+    flex-direction: row-reverse;
+}
+header .gnb.on {
+    right: 0;
+}
+
+header .gnb .close {
+    display: block;
+    color: #fff;
+}
+header .gnb ul {
+    margin-right: 200px;
+}
+header .gnb ul li {
+    font-weight: 700;
+    line-height: 1.7;
+}
+header .gnb ul li:hover,
+header .gnb ul li.active
+{
+    color: #fff;
 }
