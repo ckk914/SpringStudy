@@ -1,0 +1,80 @@
+.container.wrap {
+  margin-top: 200px;
+  margin-bottom: 200px;
+}
+
+.card {
+  width: 200%;
+}
+
+.card-header {
+  background: #343a40;
+}
+
+.card-body input {
+  height: 40px;
+  border: 1px solid #d9d9de;
+}
+
+#signup-btn, #signIn-btn {
+  background: gray;
+  margin-top: 0;
+  height: 40px;
+  color: white;
+  border: 0px solid #388e3c;
+  opacity: 0.8;
+}
+
+#signIn-btn {
+  background-color: #343A40;
+}
+
+#sign-up-btn {
+  background-color: orangered;
+  color: #fff;
+}
+
+.auto-label {
+  display: flex;
+  align-items: center;
+}
+.auto-label span {
+  margin-right: 10px;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-gray {
+  color: gray;
+}
+
+.table {
+  margin: 0 auto;
+  width: 100%;
+}
+.table * {
+  border: none;
+  margin-bottom: 0;
+}
+
+.table td {
+  padding-top: 10px;
+}
+
+.table td.colspan-2 {
+  width: 100%;
+  text-align: center;
+  margin-top: 24px;
+  padding-top: 12px;
+  border-top: 1px solid #ececec;
+}
+
+#custom-login-btn img {
+  width: 300px;
+}
