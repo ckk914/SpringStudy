@@ -20,9 +20,10 @@ public class Board {
     private int boardNo;                               // 게시글 번호
     private String title;                               //글제목
     private String content;                         //글내용
-    private String writer;                          //작성자명
+    private String writer;                          //작성자명  M.name AS writer
     private int viewCount;                          // 조회수
     private LocalDateTime regDateTime; //작성 일시
+    private String account;                         //글쓴이 계정명
 
     //생성자
     public Board(ResultSet rs) throws SQLException {

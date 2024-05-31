@@ -19,4 +19,5 @@ public class BoardFindAllDto {
     private LocalDateTime regDateTime;
     private int viewCount;
     private int replyCount;
+    private String account;  // 가져오기
 }

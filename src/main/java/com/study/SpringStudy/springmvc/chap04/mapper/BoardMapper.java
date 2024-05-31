@@ -23,4 +23,5 @@ public interface BoardMapper {
 
     //총 게시물 수 조회
     int count(Search search);
+
 }

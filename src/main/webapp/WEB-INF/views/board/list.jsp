@@ -82,11 +82,15 @@
                     </div>
                     <div class="card-content">${b.shortContent}</div>
                   </section>
-                  <div class="card-btn-group">
-                    <button class="del-btn" data-href="/board/delete?bno=${b.bno}">
-                      <i class="fas fa-times"></i>
-                    </button>
-                  </div>
+                  <!-- X버튼 영역 -->
+                  <!-- 관리자 이거나 본인이 쓴 글에만 렌더링되도록~! -->
+                  <c:if test="${login.auth =='ADMIN'||login.account ==b.account}">
+                    <div class="card-btn-group">
+                      <button class="del-btn" data-href="/board/delete?bno=${b.bno}">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </c:if>
                 </div>
                 <!-- end div.card-wrapper -->
               </c:forEach>
@@ -217,7 +221,9 @@
             const $delBtn = e.target
               .closest(".card-wrapper")
               ?.querySelector(".del-btn");
-            $delBtn.style.opacity = "0";
+            if ($delBtn !== null) {
+              $delBtn.style.opacity = "0";
+            }
           }
 
           $cardContainer.onmouseover = (e) => {
@@ -229,7 +235,9 @@
             const $delBtn = e.target
               .closest(".card-wrapper")
               ?.querySelector(".del-btn");
-            $delBtn.style.opacity = "1";
+            if ($delBtn !== null) {
+              $delBtn.style.opacity = "1";
+            }
           };
 
           $cardContainer.onmousedown = (e) => {
