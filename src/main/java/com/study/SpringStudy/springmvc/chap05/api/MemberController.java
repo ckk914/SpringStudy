@@ -77,7 +77,7 @@ public class MemberController {
     // 로그인 요청 처리
     @PostMapping("/sign-in")
     public String signIn(LoginDto dto,
-                         RedirectAttributes ra,
+                         RedirectAttributes ra,     //리다이렉트 할때 쓰는 전송 객체
                          HttpServletRequest request) {
 
         log.info("/members/sign-in POST");
@@ -96,6 +96,8 @@ public class MemberController {
         // 요청이 2번 발생하므로 다른 request객체를 jsp가 사용하게 됨
 
 //        model.addAttribute("result", result); // (X)
+        //리다이렉트 할때 쓰는 전송 객체⭐️
+        //ㄴ 리다이렉트 객체를 써야 리다이렉트 페이지 까지 전송된다.~!
         ra.addFlashAttribute("result", result);
 
         if (result == LoginResult.SUCCESS) {
