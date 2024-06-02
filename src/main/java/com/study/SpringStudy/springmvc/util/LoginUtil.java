@@ -9,6 +9,7 @@ public class LoginUtil {
 
     //로그인 여부 확인
     public static boolean isLoggedIn(HttpSession session){
+        //null 이 아니라면 로그인 한 것이다.
         return session.getAttribute(LOGIN) != null;
     }
 

@@ -11,11 +11,12 @@ import lombok.*;
 public class LoginUserInfoDto {
 
     //클라이언트에 보낼 정보
-    private String account;
-    private String nickName;
-    private String email;
-    private String auth;
+    private String account;     //계정명
+    private String nickName;    //이름
+    private String email;           //이메일
+    private String auth;            //권한
 
+    //생성자
     public LoginUserInfoDto(Member member){
         this.account = member.getAccount();
         this.email = member.getEmail();

@@ -63,7 +63,7 @@ public class MemberController {
         //로그인 한 사람이 이 요청을 보내면 돌려보낸다.
 //        LoginUserInfoDto login
 //                = (LoginUserInfoDto) session.getAttribute("login");
-        //ㄴ 로그인 안했으면 null 들어옴
+        //ㄴ 로그인 안했으면 null 들어옴 (공통 처리를위해 주석처리)
 //        if(LoginUtil.isLoggedIn(session)){
 //            return "redirect:/";
 //        }
@@ -114,8 +114,9 @@ public class MemberController {
         return "redirect:/members/sign-in";
     }
 
+    //# 로그아웃 구현하기
     @GetMapping("/sign-out")
-    public String signOut(HttpSession session){
+    public String signOut(HttpSession session){  //세션 가져오기.(스프링이 알아서 해줌)
         //세션에서 로그인 기록 삭제
 //        HttpSession session = request.getSession();
         session.removeAttribute("login");
