@@ -102,7 +102,7 @@ public class MemberController {
         ra.addFlashAttribute("result", result);
 
         if (result == LoginResult.SUCCESS) {
-
+            //리다이렉트가 있는지 확인해본다.
             String redirect = (String) session.getAttribute("redirect");
             if(redirect != null){
                 session.removeAttribute("redirect");

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import static com.study.SpringStudy.springmvc.chap05.service.LoginResult.NO_PW;
 import static com.study.SpringStudy.springmvc.chap05.service.LoginResult.SUCCESS;
+import static com.study.SpringStudy.springmvc.util.LoginUtil.LOGIN;
 
 
 @Service
@@ -62,8 +63,9 @@ public class MemberService {
         session.setMaxInactiveInterval(60 * 60); //세션 수명  1시간 설정  1당 1초
         log.info("sessionTime:{}", maxInactiveInterval); //세션 시간 log
         //세션에 저장
-        session.setAttribute("login", new LoginUserInfoDto(foundMember));
-        session.setAttribute("loginUserName", foundMember.getName());
+        session.setAttribute(LOGIN, new LoginUserInfoDto(foundMember));;
+//        session.setAttribute("login", new LoginUserInfoDto(foundMember));
+//        session.setAttribute("loginUserName", foundMember.getName());
         return SUCCESS;
 
     }

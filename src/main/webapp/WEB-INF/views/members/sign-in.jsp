@@ -111,17 +111,19 @@
                     const params = new URLSearchParams(window.location.search);//⭐️
                     const message = params.get('message'); //url에서 message안에 있는 데이터 읽어옴
 
-                    if(message === 'login-required'){
+                    if (message === 'login-required') {
                         alert('로그인이 필요한 서비스입니다.');
                     }
 
-// 쿼리 파라미터를 제거한 새로운 URL 생성
-        // window.location.origin -> http://localhost:8383
-        // window.location.pathname -> /members/sign-in
-        const newUrl = window.location.origin + window.location.pathname;
+                    // 쿼리 파라미터를 제거한 새로운 URL 생성
+                    // window.location.origin -> http://localhost:8383
+                    // window.location.pathname -> /members/sign-in
+                    const newUrl = window.location.origin + window.location.pathname;
 
-        // history.replaceState(state, title, url) : 브라우저 조작
-        history.replaceState(null, null, newUrl);
+                    // history.replaceState(state, title, url) : 브라우저 조작
+                    //안쓰니까 앞에 두개는 null null 제어할 항목만 표기.
+                    //alert 한번만 뜨게 설정하기⭐️
+                    history.replaceState(null, null, newUrl);
                 </script>
 
 
