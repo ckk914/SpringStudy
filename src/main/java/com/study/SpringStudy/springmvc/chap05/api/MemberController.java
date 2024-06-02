@@ -78,14 +78,15 @@ public class MemberController {
     @PostMapping("/sign-in")
     public String signIn(LoginDto dto,
                          RedirectAttributes ra,     //리다이렉트 할때 쓰는 전송 객체
-                         HttpServletRequest request) {
+                         HttpServletRequest request) { //세션 사용 목적⭐️
 
         log.info("/members/sign-in POST");
         log.debug("parameter: {}", dto);
 
-        // 세션 얻기
+        // 세션 얻기⭐️
         HttpSession session = request.getSession();
 
+        //세션을 서비스에게 보냄
         LoginResult result = memberService.authenticate(dto, session);
 
         // 로그인 검증 결과를 JSP에게 보내기
