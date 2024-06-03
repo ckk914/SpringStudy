@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.springstudy.springmvc.chap05.mapper.ViewLogMapper">
+
+    <insert id="insertViewLog">
+        INSERT INTO view_log
+        (account, board_no, view_time)
+        VALUES
+        (#{account}, #{boardNo}, #{viewTime})
+    </insert>
+
+    <update id="updateViewLog">
+        UPDATE view_log
+        SET view_time = #{viewTime}
+        WHERE account = #{account}
+        AND board_no = #{boardNo}
+    </update>
+
+    <select id="findOne" resultType="viewLog">
+        SELECT *
+        FROM view_log
+        WHERE account = #{account}
+        AND board_no = #{bno}
+    </select>
+
+</mapper>
