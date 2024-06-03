@@ -1,6 +1,7 @@
 package com.study.SpringStudy.springmvc.config;
 
 import com.study.SpringStudy.springmvc.interceptor.AfterLoginInterceptor;
+import com.study.SpringStudy.springmvc.interceptor.AutoLoginInterceptor;
 import com.study.SpringStudy.springmvc.interceptor.BoardInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
     //객체 주입
     private final AfterLoginInterceptor afterLoginInterceptor;
     private final BoardInterceptor boardInterceptor;
+    private final AutoLoginInterceptor autoLoginInterceptor;
+
     //설정 메서드
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -33,5 +36,10 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .addPathPatterns("/board/*")                                                //전체 거부
                 .excludePathPatterns("/board/list", "/board/detail")        //두개는 허용
         ;
+
+        //자동 로그인 인터셉터 등록
+        registry
+                .addInterceptor(autoLoginInterceptor)
+                .addPathPatterns("/**");
     }
 }

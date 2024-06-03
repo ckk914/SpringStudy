@@ -2,7 +2,10 @@ package com.study.SpringStudy.springmvc.util;
 
 import com.study.SpringStudy.springmvc.chap05.dto.response.LoginUserInfoDto;
 import com.study.SpringStudy.springmvc.chap05.entity.Auth;
+import org.springframework.web.util.WebUtils;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class LoginUtil {
@@ -29,9 +32,17 @@ public class LoginUtil {
         //로그인한 사람 정보 가져옴
         LoginUserInfoDto loggedInUser = getLoggedInUser(session);
         Auth auth = null;
-        if (isLoggedIn(session)) {
-            auth = Auth.valueOf(loggedInUser.getAuth());
+        if (isLoggedIn(session)) {   //로그인 했으면
+            auth = Auth.valueOf(loggedInUser.getAuth());  //권한 정보 가져옴
         }
-        return auth == Auth.ADMIN;
+        return auth == Auth.ADMIN;  //관리자인지 체크
+    }
+    public static boolean isMine(String boardAccount, String loggedInUserAccount) {
+        return boardAccount.equals(loggedInUserAccount);
+    }
+    //자동 로그인 검증
+    public static boolean isAutoLogin(HttpServletRequest request) {
+        Cookie autoLoginCookie = WebUtils.getCookie(request, AUTO_LOGIN_COOKIE);
+        return autoLoginCookie != null;   // 널이 아니면 자동로그인 상태
     }
 }

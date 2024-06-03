@@ -58,7 +58,7 @@ public class BoardInterceptor implements HandlerInterceptor {   //HandlerInterce
             // 대조해보는 작업이 필요함
             if (!isMine(boardAccount, loggedInUserAccount)) {
                 response.setStatus(403);  //클라이언트가 서버에 접근하려고 했지만, 서버가 요청을 거부했다는 것
-                response.sendRedirect("/access-deny?message=authorization");
+                response.sendRedirect("/access-deny?message=authorization"); //메시지 포함 전송
                 return false;
             }
 

@@ -118,9 +118,17 @@ public class MemberController {
 
     //# 로그아웃 구현하기
     @GetMapping("/sign-out")
-    public String signOut(HttpSession session){  //세션 가져오기.(스프링이 알아서 해줌)
+    public String signOut(
+            HttpServletRequest request
+            ,HttpServletResponse response){  //세션 가져오기.(스프링이 알아서 해줌)
         //세션에서 로그인 기록 삭제
-//        HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
+        //자동 로그인 상태인지 확인
+        if(LoginUtil.isAutoLogin(request)) {
+        //쿠키를 제거하고, db에도 자동 로그인 관련 데이터를 원래대로 해놓음
+        memberService.autoLoginClear(request, response);
+
+        }
         session.removeAttribute("login");
         //세션을 초기화 (reset)
         session.invalidate();  //무효화

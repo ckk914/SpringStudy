@@ -34,4 +34,10 @@
         SET session_id = #{sessionId}, LIMIT_TIME = #{limitTime}
         WHERE ACCOUNT = #{account}
     </update>
+    <select id="findMemberBySessionId" resultType="member">
+        SELECT
+          ACCOUNT, NAME, EMAIL, AUTH, LIMIT_TIME
+        FROM TBL_MEMBER
+        WHERE SESSION_ID = #{sessionId}
+    </select>
 </mapper>
