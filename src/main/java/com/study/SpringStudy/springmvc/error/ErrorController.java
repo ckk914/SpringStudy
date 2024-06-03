@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class ErrorController {
+public class ErrorController {          //에러 화면 연결.!
     @GetMapping("/error/404")
     public String error404(){
         return "error/error404";
@@ -16,6 +16,7 @@ public class ErrorController {
     }
     @GetMapping("/access-deny")
     public String error500(String message, Model model){
+        model.addAttribute("msg", message);
         return "error/access-deny";
     }
 }
