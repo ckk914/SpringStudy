@@ -28,4 +28,10 @@
         <if test="type == 'account'"> WHERE account = #{keyword}</if>
         <if test="type == 'email'"> WHERE email = #{keyword}</if>
     </select>
+
+    <update id ="updateAutoLogin">
+        UPDATE TBL_MEMBER
+        SET session_id = #{sessionId}, LIMIT_TIME = #{limitTime}
+        WHERE ACCOUNT = #{account}
+    </update>
 </mapper>

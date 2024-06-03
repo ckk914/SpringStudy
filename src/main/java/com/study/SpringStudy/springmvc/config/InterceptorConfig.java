@@ -30,7 +30,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
         // 게시판 인터셉터 등록
         registry
                 .addInterceptor(boardInterceptor)
-                .addPathPatterns("/board/*")                //전체 거부
+                .addPathPatterns("/board/*")                                                //전체 거부
                 .excludePathPatterns("/board/list", "/board/detail")        //두개는 허용
         ;
     }
