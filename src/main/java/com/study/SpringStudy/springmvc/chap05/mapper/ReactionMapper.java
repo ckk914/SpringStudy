@@ -1,8 +1,10 @@
 package com.study.SpringStudy.springmvc.chap05.mapper;
 
 import com.study.SpringStudy.springmvc.chap05.entity.Reaction;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface ReactionMapper {
     //리액션 생성 - 좋아요/ 싫어요 처음 찍었을때
     void save(Reaction reaction);

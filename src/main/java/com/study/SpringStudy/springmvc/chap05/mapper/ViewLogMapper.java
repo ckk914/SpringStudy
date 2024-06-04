@@ -11,6 +11,6 @@ public interface ViewLogMapper {
     //조회수 기록 시간 추정
     void updateViewLog(ViewLog viewLog);
     //조회수 기록 조회
-    ViewLog findOne(@Param("acount") String account,
+    ViewLog findOne(@Param("account") String account,
                       @Param("bno") long bno);
 }

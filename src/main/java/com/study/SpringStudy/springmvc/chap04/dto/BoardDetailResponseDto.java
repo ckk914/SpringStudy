@@ -8,6 +8,7 @@ import lombok.Setter;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+
 @Getter
 public class BoardDetailResponseDto {
     private int boardNo;
@@ -15,7 +16,14 @@ public class BoardDetailResponseDto {
     private String title;
     private String content;
     private String regDateTime;
-    @Setter private List<Reply> replies;        //메퍼한테 받은 것을 리스트로 만들어서 보낸다
+    @Setter
+    private int likeCount;      //총 좋아요
+    @Setter
+    private int dislikeCount;  //총 싫어요
+    @Setter
+    private String userReaction; // 현재 리액션 상태
+
+//    @Setter private List<Reply> replies;        //메퍼한테 받은 것을 리스트로 만들어서 보낸다
 
     public BoardDetailResponseDto(Board b) {
     this.boardNo = b.getBoardNo();
