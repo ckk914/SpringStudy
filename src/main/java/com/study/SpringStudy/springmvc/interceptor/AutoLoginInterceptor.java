@@ -2,6 +2,7 @@ package com.study.SpringStudy.springmvc.interceptor;
 
 import com.study.SpringStudy.springmvc.chap05.entity.Member;
 import com.study.SpringStudy.springmvc.chap05.mapper.MemberMapper;
+import com.study.SpringStudy.springmvc.chap05.service.MemberService;
 import com.study.SpringStudy.springmvc.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -30,9 +31,9 @@ public class AutoLoginInterceptor implements HandlerInterceptor {
 //        }
         //  ㅣㅣ
         Cookie autoLoginCookie = WebUtils.getCookie(request, LoginUtil.AUTO_LOGIN_COOKIE);
-        //2. 자동 로그인 쿠키가 있으면
+        //2. 자동 로그인 쿠키가 있고 &&  로그인이 안되어 있다면
         //   사이트 로그인 처리를 수행
-        if(autoLoginCookie != null){
+        if(autoLoginCookie != null && LoginUtil.isLoggedIn(request.getSession())) {
             //3, 쿠키에 들어있는 랜덤값 읽기
             String sessionId = autoLoginCookie.getValue();
 
@@ -41,8 +42,11 @@ public class AutoLoginInterceptor implements HandlerInterceptor {
 
             //5. 회원이 정상 조회되었고, 자동 로그인 만료 시간 이전이라면
             //    사이트 로그인 처리(세션에 dto 세팅)를 수행
-            if(foundMember  != null && LocalDateTime.now().isBefore(foundMember.getLimitTime())){
+            if(foundMember  != null
+                    && LocalDateTime.now().isBefore(foundMember.getLimitTime())){
 
+                //자동 로그인 처리~! 껐다가 켜도 로그인 됨 / 빌드 다시해도 로그인 됨
+                MemberService.maintainLoginState(request.getSession(), foundMember);
             }
         }
         return true;
