@@ -34,7 +34,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry
                 .addInterceptor(boardInterceptor)
                 .addPathPatterns("/board/*")                                                //전체 거부
-                .excludePathPatterns("/board/list", "/board/detail")        //두개는 허용
+                .excludePathPatterns("/board/list", "/board/detail","/board/like","/board/dislike")        //두개는 허용
         ;
 
         //자동 로그인 인터셉터 등록
