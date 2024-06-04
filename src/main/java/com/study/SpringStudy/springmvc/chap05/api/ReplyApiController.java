@@ -7,6 +7,7 @@ import com.study.SpringStudy.springmvc.chap05.dto.response.ReplyDetailDto;
 import com.study.SpringStudy.springmvc.chap05.dto.response.ReplyListDto;
 import com.study.SpringStudy.springmvc.chap05.entity.Reply;
 import com.study.SpringStudy.springmvc.chap05.service.ReplyService;
+import com.study.SpringStudy.springmvc.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Delete;
@@ -17,6 +18,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +37,8 @@ public class ReplyApiController {
     // @PathVariable   URL 에 붙어있는 변수값을 읽는 아노테이션
     @GetMapping("/{bno}/page/{pageNo}")
     public ResponseEntity<?> list(@PathVariable long bno,
-                                  @PathVariable int pageNo) {    //GetMapping 과  이름 맞춰야함 ⭐️
+                                  @PathVariable int pageNo,
+                                  HttpSession session) {    //GetMapping 과  이름 맞춰야함 ⭐️
         if (bno == 0) {
             String message = "글번호는 0이 될 수 없습니다.";
             log.warn(message);
@@ -45,6 +48,7 @@ public class ReplyApiController {
         }
         log.info("/api/v1/replies/{}: GET", bno);
         ReplyListDto replies = replyService.getReplies(bno, new Page(pageNo, 10));
+        replies.setLoginUser(LoginUtil.getLoggedInUser(session)); //안했으면 널
 
         return ResponseEntity
                 .ok()
@@ -58,8 +62,9 @@ public class ReplyApiController {
     public ResponseEntity<?> posts(
             @Validated @RequestBody ReplyPostDto dto   // @Validated 검증~!⭐️
             , BindingResult result //입력값 검증 결과 데이터를 갖고 있는 객체
+            , HttpSession session
 
-    ) {
+            ) {
         log.info("/api/vi/replies: post");
         log.debug("parameter: {}", dto);
 
@@ -74,7 +79,7 @@ public class ReplyApiController {
         log.debug(result.toString());  //노빠꾸 -> 데이터 그냥 들어감. 에러 직접 처리해야함
 
 
-        boolean flag = replyService.register(dto);
+        boolean flag = replyService.register(dto, session);
 
         if (!flag) return ResponseEntity
                 .internalServerError()

@@ -32,6 +32,7 @@ public class Reply {                                    //db와 직접적으로 
     private String replyWriter;                 //댓글 작성자
     private LocalDateTime replyDate;        //댓글 작성 시간
     private long boardNo;                           //게시물 번호
+    private String account;                         // new
 
 
 

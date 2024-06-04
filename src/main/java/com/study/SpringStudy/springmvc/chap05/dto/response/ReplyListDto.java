@@ -23,6 +23,8 @@ public class ReplyListDto {
     *  {}, {}, {}
     * ]
     * */
+    @Setter
+    private LoginUserInfoDto loginUser;
     private PageMaker pageInfo;
     private List<ReplyDetailDto> replies;
 
