@@ -49,30 +49,34 @@
                             <!-- 댓글 쓰기 영역 -->
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-9">
-                                            <div class="form-group">
-                                                <label for="newReplyText" hidden>댓글 내용</label>
-                                                <textarea rows="3" id="newReplyText" name="replyText"
-                                                    class="form-control" placeholder="댓글을 입력해주세요."></textarea>
+                                    <c:if test="${empty login}">
+                                     <a href="/members/sign-in?redirect=/board/detail?bno=${bbb.boardNo}">댓글은 로그인 후 작성해주세요!!</a>
+                                    </c:if>
+                                    <c:if test="${not empty login}">
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                    <label for="newReplyText" hidden>댓글 내용</label>
+                                                    <textarea rows="3" id="newReplyText" name="replyText"
+                                                        class="form-control" placeholder="댓글을 입력해주세요."></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="newReplyWriter" hidden>댓글 작성자</label>
+                                                    <input id="newReplyWriter" name="replyWriter" type="text"
+                                                        value="${login.nickName}" readonly class="form-control"
+                                                        placeholder="작성자 이름" style="margin-bottom: 6px" />
+                                                    <button id="replyAddBtn" type="button"
+                                                        class="btn btn-dark form-control">
+                                                        등록
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="newReplyWriter" hidden>댓글 작성자</label>
-                                                <input id="newReplyWriter" name="replyWriter" type="text"
-                                                    class="form-control" placeholder="작성자 이름"
-                                                    style="margin-bottom: 6px" />
-                                                <button id="replyAddBtn" type="button"
-                                                    class="btn btn-dark form-control">
-                                                    등록
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </c:if>
                                 </div>
-                            </div>
-                            <!-- end reply write -->
+                            </div> <!-- end reply write -->
 
                             <!--댓글 내용 영역-->
                             <div class="card">
@@ -153,7 +157,7 @@
 
                     const userReaction = '${bbb.userReaction}';
                     updateReactionButtons(userReaction);
-                    
+
                     // 서버에 좋아요, 싫어요 요청을 보내는 함수
                     async function sendReaction(reactionType) {
                         console.log(reactionType);
@@ -193,7 +197,7 @@
                             $dislikeBtn.classList.remove(ACTIVE);
                             $likeBtn.classList.remove(ACTIVE);
                         }
-                    }
+                    } 
 
                     // 좋아요 클릭 이벤트
                     document.getElementById('like-btn').addEventListener('click', e => {
