@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.study.springstudy.springmvc.chap05.mapper.ViewLogMapper">
+<mapper namespace="com.study.SpringStudy.springmvc.chap05.mapper.ViewLogMapper">
 
     <insert id="insertViewLog">
         INSERT INTO view_log

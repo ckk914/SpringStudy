@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.SpringStudy.springmvc.chap05.mapper.ReactionMapper">
+
+    <insert id="save">
+        INSERT INTO TBL_REACTION
+        (BOARD_NO,ACCOUNT,REACTION_TYPE)
+        VALUES
+        (#{boardNo},#{account},#{reactionType})
+    </insert>
+    <delete id="delete">
+        DELETE FROM TBL_REACTION
+        WHERE BOARD_NO = #{boardNo}
+        AND account = #{account}
+    </delete>
+
+    <select id="findOne" resultType="reaction">
+        SELECT * FROM TBL_REACTION
+        WHERE BOARD_NO = #{boardNo}
+        AND account = #{account}
+    </select>
+
+    <select id="countLikes" resultType="int">
+        SELECT count(*) FROM TBL_REACTION
+        WHERE BOARD_NO = #{boardNo}
+        AND reaction_type = 'LIKE'
+    </select>
+
+    <select id="countDislikes" resultType="int">
+        SELECT count(*) FROM TBL_REACTION
+        WHERE BOARD_NO = #{boardNo}
+        AND reaction_type = 'DISLIKE'
+    </select>
+
+
+</mapper>
