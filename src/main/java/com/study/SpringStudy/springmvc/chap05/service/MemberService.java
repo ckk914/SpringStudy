@@ -33,9 +33,11 @@ public class MemberService {
     private final PasswordEncoder encoder;
 
     // 회원 가입 중간 처리
-    public boolean join(SignUpDto dto) {
+    public boolean join(SignUpDto dto, String profilePath) {
         // dto를 엔터티로 변환
         Member member = dto.toEntity();
+        member.setProfileImg(profilePath); // 프로필 사진 경로 엔터티에 설정
+
 
         // 비밀번호를 인코딩(암호화)
         String encodedPassword = encoder.encode(dto.getPassword());
@@ -94,7 +96,6 @@ public class MemberService {
                             .build()
             );
         }
-
 
         maintainLoginState(session, foundMember);
 

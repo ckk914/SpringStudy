@@ -78,3 +78,29 @@
 #custom-login-btn img {
   width: 300px;
 }
+
+.profile {
+  margin-bottom: 70px;
+  text-align: center;
+}
+
+.profile label {
+  font-weight: 700;
+  font-size: 1.2em;
+  cursor: pointer;
+  color: rgb(140, 217, 248);
+}
+
+.profile .thumbnail-box {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 30px auto 10px;
+  cursor: pointer;
+}
+
+.profile .thumbnail-box img {
+  width: 200px;
+  height: 200px;
+}
