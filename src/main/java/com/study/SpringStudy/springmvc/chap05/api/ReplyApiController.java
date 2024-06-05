@@ -118,6 +118,7 @@ public class ReplyApiController {
     }
 
     //댓글 수정 요청
+    //@putMapping 이나 @PatchMapping 동시 사용 불가능  ⭐️
 //    @PutMapping     // 전체 수정
 //    @PatchMapping //일부 수정
 
@@ -129,6 +130,7 @@ public class ReplyApiController {
      *   PUT - obj = {age : 10};
      *  PATCH - obj.age =  10;
      * */
+    // ▽ put patch 동시 사용 방법.~!⭐️
     @RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH})
     public ResponseEntity<?> modify(
             @Validated @RequestBody ReplyModifyDto dto
