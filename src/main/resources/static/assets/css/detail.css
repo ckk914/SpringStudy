@@ -164,3 +164,25 @@ button.list-btn {
     background-color: #f44336;
     color: #fff;
 }
+
+/* 프로필 css */
+/* 댓글 프로필 */
+.profile-box {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 10px auto;
+}
+
+.profile-box img {
+    width: 100%;
+}
+
+.reply-profile {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+
+}

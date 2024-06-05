@@ -23,7 +23,15 @@
     </delete>
 
     <select id="findAll" resultType="reply">
-        SELECT * FROM tbl_reply
+        select r.reply_no,
+        r.reply_text,
+        r.reply_writer,
+        r.reply_date,
+        r.board_no,
+        r.account,
+        m.profile_img
+        from tbl_reply r left outer join tbl_member m
+        on r.account = m.account
         WHERE board_no = #{bno}
         ORDER BY reply_no
         LIMIT #{p.pageStart}, #{p.amount}
