@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class ReplyFindAllDto {
+    //댓글 전용 dto
     private long replyNo;                           //댓글 번호
-    @Setter
     private String replyText;                   //댓글 내용
     private String replyWriter;                 //댓글 작성자
     private LocalDateTime replyDate;        //댓글 작성 시간

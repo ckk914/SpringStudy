@@ -22,7 +22,7 @@
         WHERE reply_no = #{replyNo}
     </delete>
 
-    <select id="findAll" resultType="reply">
+    <select id="findAll" resultType="com.study.SpringStudy.springmvc.chap05.dto.response.ReplyFindAllDto">
         select r.reply_no,
         r.reply_text,
         r.reply_writer,

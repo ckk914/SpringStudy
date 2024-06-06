@@ -23,7 +23,7 @@ public class ReplyDetailDto {           //서버  > > 클라이언트    : 뿌�
     private String profileImg;        //프로필 경로
 
     //엔터티를 DTo로 변환하는 생성자
-    public ReplyDetailDto(Reply r){
+    public ReplyDetailDto(ReplyFindAllDto r){
         this.rno = r.getReplyNo();
         this.text = r.getReplyText();
         this.writer = r.getReplyWriter();
