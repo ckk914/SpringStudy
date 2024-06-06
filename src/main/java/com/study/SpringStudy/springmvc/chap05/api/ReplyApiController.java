@@ -140,6 +140,7 @@ public class ReplyApiController {
         log.info("/api/v1/replies : PUT, PATCH");       //PUT 타입으로 넘겨주면 받는다~!
         log.debug("parameter: {}", dto);
 
+        //@Validated 건 곳에서 dto 들어가면   @NotNull @NotBlink 인지 검사
         if (result.hasErrors()) {
             Map<String, String> errors = makeValidationMessageMap(result);
 

@@ -171,6 +171,7 @@
           // 실제 프로필사진이 첨부될 input
           const $fileInput = document.getElementById('profile-img');
 
+          //프로필 영역 클릭 시 input 태그 클릭 되도록 함
           $profile.addEventListener('click', e => {
             $fileInput.click();
           });
