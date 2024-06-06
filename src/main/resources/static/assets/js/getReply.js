@@ -146,26 +146,25 @@ function appendReplies({ replies, loginUser }) {
         account: replyAccount,
         profileImg,
       }) => {
-
-
         tag += `
         <div id='replyContent' class='card-body' data-reply-id='${rno}'>
             <div class='row user-block'>
                 <span class='col-md-3'>
-                    <b>${writer}</b>
+                   
                     `;
 
-                if (profileImg !== null) {
-          tag += ` <div class="profile-box">
+        if (profileImg !== null) {
+          tag += `
       <img src="${profileImg}" alt="profile image"></img>
-         </div>
+  
          `;
         } else {
-          tag += ` <div class="profile-box">
+          tag += ` 
              <img src="/assets/img/anonymous.jpg" alt="profile image"></img>
-             </div>`;
+`;
         }
-        tag += `</span>
+        tag += ` <b>${writer}</b>
+                </span>
                 <span class='offset-md-6 col-md-3 text-right'><b>${getRelativeTime(
                   createAt
                 )}</b></span>
