@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class AccessTokenDto {
+    //Json 원래 키값을 입력해서 받아온다~!
     @JsonProperty("access_token")
     private String accessToken;
     @JsonProperty("refresh_token")

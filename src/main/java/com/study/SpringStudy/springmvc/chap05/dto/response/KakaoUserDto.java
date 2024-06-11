@@ -17,7 +17,8 @@ public class KakaoUserDto {
     @JsonProperty("connected_at")
     private LocalDateTime connectedAt;
 
-    private Properties properties;  //Properties 형= 객체
+    //Properties 형= 객체⭐️
+    private Properties properties;
 
     @Getter @ToString
     public static class Properties{
