@@ -34,19 +34,19 @@ public class SnsLoginService {
         //카카오에서 받은 회원 정보로 우리 사이트 회원가입 시키기!
         String account = userInfo.getNickname();
         //회원 중복 확인
-        if(memberService.checkIdentifier("account",account)){
-            throw new IllegalArgumentException("이미 가입한 회원입니다.");
+        if(!memberService.checkIdentifier("account",account)){
+//            throw new IllegalArgumentException("이미 가입한 회원입니다.");
+            //회원 가입 진행⭐️
+            memberService.join(
+                    SignUpDto.builder()
+                            .account(account)
+                            .password("0000")
+                            .name(account)
+                            .email(account+"@kakao.com")
+                            .build(),
+                    userInfo.getProfileImage()
+            );
         }
-        //회원 가입 진행⭐️
-        memberService.join(
-                SignUpDto.builder()
-                        .account(account)
-                        .password("0000")
-                        .name(account)
-                        .email(account+"@kakao.com")
-                        .build(),
-                userInfo.getProfileImage()
-        );
 
         //우리 사이트 로그인 처리
         MemberService.maintainLoginState(session, memberMapper.findOne(account));
